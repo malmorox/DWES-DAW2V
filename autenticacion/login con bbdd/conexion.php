@@ -1,22 +1,20 @@
 <?php
-    include 'procesar.php';
-
     define ("DB_DATA", "mysql:host=localhost;dbname=practicando");
     define ("USERNAME", "malmorox");
-    define ("PASSWORD" , "marcos1234");
+    define ("PASSWORD" , "1234");
     
 
-    function iniciarSesion($nombre, $pass) {
+    function iniciarSesion($usuario, $contrasena) {
         $db = new PDO(DB_DATA, USERNAME, PASSWORD);
-        $consulta = $db->prepare("select * from usuarios where nombre = :nombre");
-        $consulta->bindValue(':nombre', $nombre, PDO::PARAM_STR);
+        $consulta = $db->prepare("SELECT * FROM usuarios WHERE usuario = :usuario");
+        $consulta->bindValue(':usuario', $usuario, PDO::PARAM_STR);
         $consulta->execute();
         $usuario = $consulta->fetch(PDO::FETCH_ASSOC);
-
-        if (password_verify($pass, $usuario['pass'])) {
+    
+        if ($usuario && password_verify($pass, $usuario['contrasena'])) {
             return true;
         }
-        $errors['usuariomalo'] = 'Credenciales incorrectas';
+    
         return false;
     }
 ?>
