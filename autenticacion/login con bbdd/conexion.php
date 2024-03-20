@@ -11,7 +11,7 @@
         $consulta->execute();
         $usuario = $consulta->fetch(PDO::FETCH_ASSOC);
     
-        if ($usuario && password_verify($pass, $usuario['contrasena'])) {
+        if ($usuario && password_verify($contrasena, $usuario['contrasena'])) {
             return true;
         }
     
