@@ -12,7 +12,7 @@ foreach ($usuarios as $usuario) {
     $sqlInserts .= "INSERT INTO usuarios (usuario, contrasena) VALUES ('$usuarioNombre', '$contrasenaHash');\n";
 }
 
-$file = 'db.sql';
+$file = 'usuarios_inserts.sql';
 file_put_contents($file, $sqlInserts);
 
 echo "Inserts generados y guardados en $file";
