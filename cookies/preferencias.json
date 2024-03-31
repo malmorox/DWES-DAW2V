@@ -1,0 +1,46 @@
+{
+    "es": {
+        "titulo": "Preferencias del usuario",
+        "idioma": "Idioma:",
+        "tema_color": "Tema de color:",
+        "tamano_fuente": "Tamaño de fuente:",
+        "guardar": "Guardar Preferencias",
+        "bienvenida": "¡Bienvenido!",
+        "introduccion": "Por favor, selecciona tus preferencias a continuación:",
+        "opciones_idioma": {
+            "es": "Español",
+            "en": "Inglés"
+        },
+        "opciones_tema_color": {
+            "claro": "Claro",
+            "oscuro": "Oscuro"
+        },
+        "opciones_tamano_fuente": {
+            "pequeno": "Pequeño",
+            "mediano": "Mediano",
+            "grande": "Grande"
+        }
+    },
+    "en": {
+        "titulo": "User Preferences",
+        "idioma": "Language:",
+        "tema_color": "Color Theme:",
+        "tamano_fuente": "Font Size:",
+        "guardar": "Save Preferences",
+        "bienvenida": "Welcome!",
+        "introduccion": "Please select your preferences below:",
+        "opciones_idioma": {
+            "es": "Spanish",
+            "en": "English"
+        },
+        "opciones_tema_color": {
+            "claro": "Light",
+            "oscuro": "Dark"
+        },
+        "opciones_tamano_fuente": {
+            "pequeno": "Small",
+            "mediano": "Medium",
+            "grande": "Large"
+        }
+    }
+}

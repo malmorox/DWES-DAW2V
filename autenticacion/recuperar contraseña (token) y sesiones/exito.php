@@ -1,11 +1,13 @@
 <?php
-session_start();
+    session_start();
 
-// Verificamos si el usuario está autenticado
-if (!isset($_SESSION["loggedin"])) {
-    header("Location: login.php");
-    exit;
-}
+    // Verificamos si el usuario está autenticado
+    if (!isset($_SESSION["loggeado"]) || $_SESSION["loggeado"] !== true) {
+        header("Location: login.php");
+        exit;
+    }
+
+    $usuario = $_SESSION["usuario"];
 ?>
 
 <!DOCTYPE html>
@@ -17,9 +19,8 @@ if (!isset($_SESSION["loggedin"])) {
 </head>
 <body>
     <h2> ¡Bienvenido! </h2>
-    <?php
-        $usuario = isset($_GET['usuario']) ? htmlspecialchars($_GET['usuario']) : 'Usuario desconocido';
-        echo "<p>Hola, $usuario. Has iniciado sesión con éxito.</p>";
-    ?>
+    <p> Hola, <?php echo $usuario; ?>. Has iniciado sesión con éxito. </p>
+    
+    <a href="logout.php">Cerrar sesión</a>
 </body>
 </html>

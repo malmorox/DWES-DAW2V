@@ -10,9 +10,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $contrasena = $_POST["contrasena"];
 
     if (iniciarSesion($usuario, $contrasena)) {
-        $_SESSION["loggedin"] = true;
+        $_SESSION["loggeado"] = true;
         $_SESSION["usuario"] = $usuario;
-        header("Location: exito.php?usuario=" . urlencode($usuario));
+        header("Location: exito.php");
         exit;
     } else {
         $errores['credenciales'] = "Usuario o contraseña incorrectos.";

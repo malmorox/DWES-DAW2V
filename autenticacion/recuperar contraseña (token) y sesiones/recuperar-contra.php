@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         insertarTokenUsuario($email, $token);
 
-        header("Location: reset.php?token=$token");
+        header("Location: reset.php?token=" . urlencode($token));
         exit;
     } else {
         $errores['email'] = "El correo electrónico proporcionado no está asociado a ninguna cuenta.";

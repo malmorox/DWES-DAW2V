@@ -10,7 +10,6 @@ CREATE TABLE tokens (
     email_usuario VARCHAR(50) NOT NULL,
     token VARCHAR(255) NOT NULL,
     fecha_expiracion DATETIME NOT NULL,
-    FOREIGN KEY (email_usuario) REFERENCES usuarios(email)
 );
 
 INSERT INTO usuarios (usuario, contrasena) VALUES ('marcos', '$2y$10$qWZYHIPeJW8E7Jo9crlncej/Rjl7nRG5WnrjFnlASC5.agcdlRVa6', 'marcos@gmail.com');
