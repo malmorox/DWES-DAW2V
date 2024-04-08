@@ -1,18 +1,14 @@
 <?php
 
-// Definición de la clase OVNI abstracta
 abstract class OVNI {
     protected $velocidad;
     protected $camuflaje;
     
-    // Método abstracto pintarHTML
     abstract public function pintarHTML();
 
-    // Método abstracto cargarInfo
     abstract public function cargarInfo($info);
 }
 
-// Subclase DiscoVolador que extiende de OVNI
 class DiscoVolador extends OVNI {
     private $radio;
 
@@ -21,7 +17,6 @@ class DiscoVolador extends OVNI {
     }
 
     public function cargarInfo($info) {
-        // Suponiendo que la información está en formato CSV
         $data = explode(';', $info);
         $this->velocidad = $data[5];
         $this->camuflaje = $data[6];
@@ -29,7 +24,6 @@ class DiscoVolador extends OVNI {
     }
 }
 
-// Subclase Cigarro que extiende de OVNI
 class Cigarro extends OVNI {
     private $longitud;
 
@@ -38,7 +32,6 @@ class Cigarro extends OVNI {
     }
 
     public function cargarInfo($info) {
-        // Suponiendo que la información está en formato CSV
         $data = explode(';', $info);
         $this->velocidad = $data[5];
         $this->camuflaje = $data[6];
@@ -46,7 +39,6 @@ class Cigarro extends OVNI {
     }
 }
 
-// Subclase LuzMisteriosa que extiende de OVNI
 class LuzMisteriosa extends OVNI {
     private $duracion;
 
@@ -55,7 +47,6 @@ class LuzMisteriosa extends OVNI {
     }
 
     public function cargarInfo($info) {
-        // Suponiendo que la información está en formato CSV
         $data = explode(';', $info);
         $this->velocidad = $data[5];
         $this->camuflaje = $data[6];
