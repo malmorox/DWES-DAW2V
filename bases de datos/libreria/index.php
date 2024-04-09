@@ -1,31 +1,54 @@
 <?php
-    include_once 'procesar.php';
+    include_once 'conexion.php';
 
-    $errores = [];
+    $errores_telefono = [];
+    $errores_prestamo = [];
+
 
     $libros = listadoLibros();
     $clientes = listadoClientes();
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") { 
+        if (isset($_POST['telefono_submit'])) {
+            if (empty($_POST['cliente_telefono'])) {
+                $errores_telefono['cliente'] = "Debes seleccionar un cliente";
+            }
 
+            $telefono = $_POST['nuevo_telefono'];
+            if (empty($telefono)) {
+                $errores_telefono['telefono'] = "Debes ingresar un numero de telefono";
+            } elseif (!preg_match("/^[0-9]{9}$/", $telefono)) {
+                $errores_telefono['telefono'] = "El numero de telefono debe contener 9 digitos";
+            }
+            
+            if (empty($errores_telefono)) {
+                $cliente_seleccionado = $_POST['cliente_telefono'];
 
-    
-    }
+                $modificacion_exitosa = actualizarTelefonoCliente($telefono, $cliente_seleccionado);
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST") { 
-        if ($_POST['libro'] !== 'Marcos') {
-            $errores['libro'] = "Debes seleccionar un libro.";
+                if ($modificacion_exitosa) {
+                    echo "El telefono se ha actualizado correctamente";
+                } else {
+                    echo "Error al actualizar el telefono";
+                }
+            }
+        } elseif (isset($_POST['prestamo_submit'])) {
+            if (empty($_POST['libro'])) {
+                $errores_prestamo['libro'] = "Debes seleccionar un libro";
+            }
+
+            if (empty($_POST['cliente_prestamo'])) {
+                $errores_prestamo['cliente'] = "Debes seleccionar un cliente";
+            }
+
+            if (empty($_POST['fecha'])) {
+                $errores_prestamo['fecha'] = "Debes ingresar la fecha del prestamo";
+            }
+
+            if (empty($errores_prestamo)) {
+                
+            }
         }
-
-        if ($_POST['cliente'] !== '1234') {
-            $errores['cliente'] = "Debes selecionar el cliente que hará el prestamo.";
-        }
-
-        if ($_POST['fecha'] !== '1234') {
-            $errores['fecha'] = "La fecha debe ser .";
-        }
-
-    
     }
 ?>
 
@@ -34,7 +57,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Libreria</title>
+    <title> Libreria </title>
     <style>
         .error { color: red; }
     </style>
@@ -47,48 +70,57 @@
         <?php endforeach; ?>
     </ul>
     <h2> Actualizar el número de teléfono de un cliente específico </h2>
-    <form action="">
-        <label for=""> Cliente: </label>
-        <select name="" id="">
+    <form method="post" action="form.php">
+        <label for="cliente_telefono"> Cliente: </label>
+        <select name="cliente_telefono">
+            <option disabled selected> Selecciona una opción </option>
             <?php foreach ($clientes as $cliente): ?>
-                <option><?= $cliente['nombre']; ?></option>
+                <option <?= isset($_POST['cliente']) && $_POST['cliente'] == $cliente['nombre'] ? 'selected' : '' ?>><?= $cliente['nombre']; ?></option>
             <?php endforeach; ?>
-        </select>
+        </select> <br>
+        <?php if (isset($errores['cliente'])): ?>
+            <span class="error"><?= $errores['cliente']; ?></span>
+        <?php endif; ?> <br> <br>
 
-        <label for=""> Nueva contraseña: </label> 
-        <input type="text" name="nueva-contrasena"> <br>
+        <label for="nuevo_telefono"> Nuevo telefono: </label> 
+        <input type="text" pattern="[0-9]{9}" name="nuevo_telefono"> <br>
+        <?php if (isset($errores['telefono'])): ?>
+            <span class="error"><?= $errores['telefono']; ?></span>
+        <?php endif; ?> <br> <br>
 
-        <input type="submit" value="MODIFICAR CONTRASEÑA">
+        <input type="submit" name="telefono_submit" value="MODIFICAR CONTRASEÑA">
     </form>
     <h2> Insertar un nuevo préstamo </h2>
     <form method="post" action="form.php">        
         <label for="libro"> Libro: </label> <br>
-        <select name="libro" id="libro">
+        <select name="libro">
+            <option disabled selected> Selecciona una opción </option>
             <?php foreach ($libros as $libro): ?>
                 <option><?= $libro['titulo']; ?></option>
             <?php endforeach; ?>
-        </select>
+        </select> <br>
         <?php if (isset($errores['libro'])): ?>
             <span class="error"><?= $errores['libro']; ?></span><br>
-        <?php endif; ?>
+        <?php endif; ?> <br> <br>
 
-        <label for="cliente"> Cliente: </label> <br>
-        <select name="cliente" id="cliente">
+        <label for="cliente_prestamo"> Cliente: </label> <br>
+        <select name="cliente_prestamo">
+            <option disabled selected> Selecciona una opción </option>
             <?php foreach ($clientes as $cliente): ?>
                 <option><?= $cliente['nombre']; ?></option>
             <?php endforeach; ?>
-        </select>
+        </select> <br>
         <?php if (isset($errores['cliente'])): ?>
             <span class="error"><?= $errores['cliente']; ?></span><br>
-        <?php endif; ?>
+        <?php endif; ?> <br> <br>
 
         <label for="fecha"> Fecha del prestamo: </label> <br>
-        <input type="date" id="fecha" name="fecha"><br>
+        <input type="date" name="fecha"> <br>
         <?php if (isset($errores['fecha'])): ?>
             <span class="error"><?= $errores['fecha']; ?></span><br>
-        <?php endif; ?>
+        <?php endif; ?> <br> <br>
         
-        <input type="submit" value="PRESTAR">
+        <input type="submit" name="prestamo_submit" value="PRESTAR">
     </form>
 </body>
 </html>

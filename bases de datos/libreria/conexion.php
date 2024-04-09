@@ -53,10 +53,12 @@
         return $idcliente;
     }
 
-    function actualizarContrasenaCliente($nuevacontrasena,$nombrecliente) {
+    function actualizarTelefonoCliente($nuevotelefono, $nombrecliente) {
         $db = conexion();
         $idcliente = idClientePorNombre($nombrecliente);
-        $consulta = $db->prepare("select * from clientes");
+        $consulta = $db->prepare("UPDATE clientes SET telefono = :nuevoTelefono WHERE id = :idCliente");
+        $consulta->bindParam(':nuevoTelefono', $nuevoTelefono, PDO::PARAM_STR);
+        $consulta->bindParam(':idCliente', $idCliente, PDO::PARAM_INT);
         $consulta->execute();
         $resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
 
