@@ -36,11 +36,11 @@
         }
 
         if (empty($errores)) {
-            $nombre = urlencode($_POST['nombre']);
-            $direccion = urlencode($_POST['direccion']);
-            $platos = urlencode($_POST['platos']);
-            $vegetariano = urlencode($_POST['vegetariano']);
-            $alergias = isset($_POST['alergias']) ? implode(', ', $_POST['alergias']) : '';
+            $nombre = urlencode($_POST["nombre"]);
+            $direccion = urlencode($_POST["direccion"]);
+            $platos = urlencode($_POST["platos"]);
+            $vegetariano = urlencode($_POST["vegetariano"]);
+            $alergias = isset($_POST["alergias"]) ? implode(", ", $_POST["alergias"]) : '';
             
             header('Location: exito.php?nombre=' . $nombre . '&direccion=' . $direccion . '&platos=' . $platos . '&vegetariano=' . $vegetariano . '&alergias=' . $alergias);
             exit();
@@ -81,8 +81,8 @@
         <label for="vegetariano"> ¿Eres vegetariano? </label> <br>
         <select name="vegetariano">
             <option disabled selected> Selecciona una opcion </option>
-            <option value="vegetariano" <?= (isset($_POST["vegetariano"]) && $_POST["vegetariano"] == "vegetariano") ? 'selected' : ''; ?>> Si</option>
-            <option value="no_vegetariano" <?= (isset($_POST["vegetariano"]) && $_POST["vegetariano"] == "no_vegetariano") ? 'selected' : ''; ?>> No </option>
+            <option value="vegetariano" <?= (isset($_POST["vegetariano"]) && $_POST["vegetariano"] == "vegetariano") ? "selected" : ''; ?>> Si</option>
+            <option value="no_vegetariano" <?= (isset($_POST["vegetariano"]) && $_POST["vegetariano"] == "no_vegetariano") ? "selected" : ''; ?>> No </option>
         </select> <br>
         <?php if (isset($errores["vegetariano"])): ?>
             <span class="error"><?= $errores["vegetariano"]; ?></span>
@@ -90,7 +90,7 @@
 
         <label for="alergias"> Alergias: </label> <br>
         <?php foreach($alergenos as $alergia): ?>
-            <span><input type="checkbox" name="alergias[]" value="<?= $alergia ?>" <?= (isset($_POST['alergias']) && in_array($alergia, $_POST['alergias'])) ? 'checked' : '' ?>> <?= $alergia ?> </span>
+            <span><input type="checkbox" name="alergias[]" value="<?= $alergia ?>" <?= (isset($_POST["alergias"]) && in_array($alergia, $_POST["alergias"])) ? "checked" : '' ?>> <?= $alergia ?> </span>
         <?php endforeach ?> <br> <br>
 
         <input type="submit" name="enviar" value="ENVIAR">
