@@ -37,7 +37,7 @@
     }
 
     // Función para obtener el nombre de un libro o cliente con el ID que le pasemos y el nombre de la tabla de la BBDD
-    function obtenerNombrePorId($id, $tabla) {
+    function obtenerNombrePorId($tabla, $id) {
         $campo = ($tabla == 'libros') ? 'titulo' : 'nombre';
 
         $db = conexion();

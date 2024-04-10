@@ -118,7 +118,7 @@
             <?php endforeach; ?>
         </select> <br>
         <?php if (isset($errores_prestamo['libro'])): ?>
-            <span class="error"> <?= $errores_prestamo['libro']; ?> </span><br>
+            <span class="error"> <?= $errores_prestamo['libro']; ?> </span>
         <?php endif; ?> <br>
 
         <label for="cliente_prestamo"> Cliente: </label> <br>
@@ -129,13 +129,13 @@
             <?php endforeach; ?>
         </select> <br>
         <?php if (isset($errores_prestamo['cliente'])): ?>
-            <span class="error"> <?= $errores_prestamo['cliente']; ?> </span><br>
+            <span class="error"> <?= $errores_prestamo['cliente']; ?> </span>
         <?php endif; ?> <br>
 
         <label for="fecha"> Fecha del prestamo: </label> <br>
         <input type="date" name="fecha" value="<?= isset($_POST['fecha']) ? $_POST['fecha'] : '' ?>"> <br>
         <?php if (isset($errores_prestamo['fecha'])): ?>
-            <span class="error"> <?= $errores_prestamo['fecha']; ?> </span><br>
+            <span class="error"> <?= $errores_prestamo['fecha']; ?> </span>
         <?php endif; ?> <br>
         
         <input type="submit" name="prestamo_submit" value="PRESTAR">
