@@ -1,9 +1,7 @@
 <?php
-    include 'procesar.php';
-
-    define ("DB_DATA", "mysql:host=localhost;dbname=examen");
-    define ("USERNAME", "examen");
-    define ("PASSWORD" , "examen");
+    define ("DB_DATA", "mysql:host=localhost;dbname=practicando");
+    define ("USERNAME", "malmorox");
+    define ("PASSWORD" , "1234");
     
     function conexion() {
         try {
@@ -15,66 +13,63 @@
         }
     }
 
-    function listadoLibros() {
+    function listadoLibros($ano = null) {
         $db = conexion();
-        $consulta = $db->prepare("select * from libros");
+        if ($ano !== null) {
+            $consulta = $db->prepare("SELECT * FROM libros WHERE ano_publicacion > :ano");
+            $consulta->bindParam(':ano', $ano);
+        } else {
+            $consulta = $db->prepare("SELECT * FROM libros");
+        }
         $consulta->execute();
         $libros = $consulta->fetchAll(PDO::FETCH_ASSOC);
-
+    
         return $libros;
-    }
-
-    function idLibroPorNombre($nombrelibro) {
-        $db = conexion();
-        $consulta = $db->prepare("select id from libros where nombre = :nombrecliente");
-        $consulta->bindParam(':nombrecliente', $nombrecliente);
-        $consulta->execute();
-        $idcliente = $consulta->fetch(PDO::FETCH_ASSOC);
-
-        return $idcliente;
     }
 
     function listadoClientes() {
         $db = conexion();
-        $consulta = $db->prepare("select * from clientes");
+        $consulta = $db->prepare("SELECT * FROM clientes");
         $consulta->execute();
         $clientes = $consulta->fetchAll(PDO::FETCH_ASSOC);
 
         return $clientes;
     }
 
-    function idClientePorNombre($nombrecliente) {
-        $db = conexion();
-        $consulta = $db->prepare("select id from clientes where nombre = :nombrecliente");
-        $consulta->bindParam(':nombrecliente', $nombrecliente);
-        $consulta->execute();
-        $idcliente = $consulta->fetch(PDO::FETCH_ASSOC);
+    // Función para obtener el nombre de un libro o cliente con el ID que le pasemos y el nombre de la tabla de la BBDD
+    function obtenerNombrePorId($id, $tabla) {
+        $campo = ($tabla == 'libros') ? 'titulo' : 'nombre';
 
-        return $idcliente;
+        $db = conexion();
+        $consulta = $db->prepare("SELECT $campo FROM $tabla WHERE id = :id");
+        $consulta->bindParam(':id', $id);
+        $consulta->execute();
+        $resultado = $consulta->fetch(PDO::FETCH_ASSOC);
+    
+        if ($resultado) {
+            return $resultado[$campo];
+        } else {
+            return "ERROR";
+        }
     }
 
-    function actualizarTelefonoCliente($nuevotelefono, $nombrecliente) {
+    function actualizarTelefonoCliente($nuevotelefono, $idcliente) {
         $db = conexion();
-        $idcliente = idClientePorNombre($nombrecliente);
         $consulta = $db->prepare("UPDATE clientes SET telefono = :nuevoTelefono WHERE id = :idCliente");
         $consulta->bindParam(':nuevoTelefono', $nuevoTelefono, PDO::PARAM_STR);
         $consulta->bindParam(':idCliente', $idCliente, PDO::PARAM_INT);
-        $consulta->execute();
-        $resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
-
+        $resultado = $consulta->execute();
+        // Retorna true si hace el update y false si no lo hace
         return $resultado;
     }
 
-    function insertarPrestamo($nombrelibro, $nombrecliente, $fechaprestamo) {
+    function insertarPrestamo($idlibro, $idcliente, $fechaprestamo) {
         $db = conexion();
-        $idcliente = idClientePorNombre($nombrecliente);
-        $idlibro = idLibroPorNombre($nombrelibro);
-        $consulta = $db->prepare("insert into prestamos (id_libro, id_cliente, fecha_prestamo) values (:idlibro, :idcliente, :fechaprestamo)");
+        $consulta = $db->prepare("INSERT INTO prestamos (id_libro, id_cliente, fecha_prestamo) VALUES (:idlibro, :idcliente, :fechaprestamo)");
         $consulta->bindParam(':idlibro', $idlibro);
         $consulta->bindParam(':idcliente', $idcliente);
         $consulta->bindParam(':fechaprestamo', $fechaprestamo);   
-        $consulta->execute();
-        $resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
+        $resultado = $consulta->execute();
 
         return $resultado;
     }
