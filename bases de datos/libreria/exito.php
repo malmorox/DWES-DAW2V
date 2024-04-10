@@ -4,7 +4,7 @@
     } else {
         $libro_prestamo = isset($_GET["libro"]) ? urldecode($_GET["libro"]) : "ERROR";
         $cliente_prestamo = isset($_GET["cliente"]) ? urldecode($_GET["cliente"]) : "ERROR";
-        $fecha_prestamo = isset($_GET["fecha"]) ? urldecode($_GET["fecha"]) : "ERROR";
+        $fecha_prestamo = isset($_GET["fecha"]) ? date('d/m/Y', strtotime(urldecode($_GET["fecha"]))) : "ERROR";
     }
 ?>
 
