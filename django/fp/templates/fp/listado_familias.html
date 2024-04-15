@@ -8,7 +8,7 @@
     <h1> Listado de familias profesionales </h1>
     <ul>
         {% for familia in familias %}
-            <li> <a href="{% url 'detalle_familia' familia.id %}"> {{ familia.nombre }} </a> </li>
+            <li> <a href="{% url 'detalle_ciclos' familia.id %}"> {{ familia.nombre }} </a> </li>
         {% endfor %}
     </ul>
 </body>

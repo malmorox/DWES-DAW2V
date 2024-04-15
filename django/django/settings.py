@@ -50,7 +50,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'repaso.urls'
+ROOT_URLCONF = 'django.urls'
 
 TEMPLATES = [
     {
@@ -69,7 +69,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'repaso.wsgi.application'
+WSGI_APPLICATION = 'django.wsgi.application'
 
 
 # Database
