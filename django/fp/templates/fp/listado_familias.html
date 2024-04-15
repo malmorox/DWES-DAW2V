@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title> Listado de familias profesionales </title>
+</head>
+<body>
+    <h1> Listado de familias profesionales </h1>
+    <ul>
+        {% for familia in familias %}
+            <li> <a href="{% url 'detalle_familia' familia.id %}"> {{ familia.nombre }} </a> </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
