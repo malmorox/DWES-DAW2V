@@ -3,13 +3,7 @@
     define('NUMERO_ALERTAS_ALEATORIAS', 10);
 
     spl_autoload_register(function ($nombre_clase) {
-        $directorio_clases = 'clases/';
-        $archivo_clase = $directorio_clases . $nombre_clase . '.php';
-        
-        if (file_exists($archivo_clase)) {
-            //include $archivo_clase;
-            require_once $archivo_clase;
-        }
+        include 'clases/' . $nombre_clase . '.php';
     });
 
     $tipos_alerta = ['AlertaWarning', 'AlertaError', 'AlertaAlarma'];
@@ -27,11 +21,11 @@
 <body>
     <?php
         for ($i = 0; $i < NUMERO_ALERTAS_ALEATORIAS; $i++) {
-            $tipo = $tipos_alerta[array_rand($tipos_alerta)];
+            $tipo_alerta = $tipos_alerta[array_rand($tipos_alerta)];
             $titulo = "Título de la alerta nº" . ($i + 1);
             $mensaje = "Mensaje de la alerta nº" . ($i + 1);
             
-            $alerta = new $tipo($titulo, $mensaje);
+            $alerta = new $tipo_alerta($titulo, $mensaje);
 
             $alerta->mostrar();
         }

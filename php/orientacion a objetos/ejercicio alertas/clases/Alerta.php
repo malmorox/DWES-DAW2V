@@ -1,8 +1,8 @@
 <?php
 
 abstract class Alerta {
-    protected $titulo;
-    protected $mensaje;
+    public $titulo;
+    public $mensaje;
 
     public function __construct($titulo, $mensaje) {
         $this->titulo = $titulo;

@@ -4,7 +4,6 @@
     $errores_telefono = [];
     $errores_prestamo = [];
 
-
     $todos_libros = listadoLibros();
     $libros_despues_2000 = listadoLibros(2000);
     $todos_clientes = listadoClientes();

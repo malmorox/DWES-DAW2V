@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Bienvenido, <?php echo $usuario['nombre_usuario']; ?>!</h1>
-    <h2>Editar Perfil</h2>
+    <h1> ¡Bienvenido, <?php echo $usuario['nombre_usuario']; ?>! </h1>
+    <h2> Editar Perfil </h2>
     <form action="update_profile.php" method="post">
         <label for="new_username">Nuevo Nombre de Usuario:</label>
         <input type="text" id="new_username" name="new_username" required>
