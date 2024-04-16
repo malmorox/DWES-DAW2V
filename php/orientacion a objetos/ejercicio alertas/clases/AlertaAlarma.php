@@ -1,6 +1,6 @@
 <?php
 
-include 'Alerta.php';
+require_once 'Alerta.php';
 
 class AlertaAlarma extends Alerta {
     public function mostrar() {

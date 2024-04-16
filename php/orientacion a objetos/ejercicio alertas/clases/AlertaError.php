@@ -1,12 +1,11 @@
 <?php
 
-include 'Alerta.php';
+require_once 'Alerta.php';
 
 class AlertaError extends Alerta {
     public function mostrar() {
-        echo "<h2 style='color: red; text-decoration: underline;'> {$this->titulo} </h2>";
-        echo "<p> {$this->mensaje} </p>";
-        echo "<div> <i class='fas fa-times-circle'> </i> </div>";
+        echo "<h1 style='color: red; text-decoration: underline;'> {$this->titulo} </h1>";
+        echo "<p> {$this->mensaje} <i class='fas fa-circle-xmark'> </i> </p>";
     }
 }
 
