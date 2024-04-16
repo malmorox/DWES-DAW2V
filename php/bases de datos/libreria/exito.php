@@ -2,9 +2,9 @@
     if (!isset($_GET["libro"]) || !isset($_GET["cliente"]) || !isset($_GET["fecha"])) {
         header("Location: index.php");
     } else {
-        $libro_prestamo = isset($_GET["libro"]) ? urldecode($_GET["libro"]) : "ERROR";
-        $cliente_prestamo = isset($_GET["cliente"]) ? urldecode($_GET["cliente"]) : "ERROR";
-        $fecha_prestamo = isset($_GET["fecha"]) ? date('d/m/Y', strtotime(urldecode($_GET["fecha"]))) : "ERROR";
+        $libro_prestamo = isset($_GET["libro"]) ? urldecode($_GET["libro"]) : null;
+        $cliente_prestamo = isset($_GET["cliente"]) ? urldecode($_GET["cliente"]) : null;
+        $fecha_prestamo = isset($_GET["fecha"]) ? date('d/m/Y', strtotime(urldecode($_GET["fecha"]))) : null;
     }
 ?>
 
