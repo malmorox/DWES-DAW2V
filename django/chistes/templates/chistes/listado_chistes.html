@@ -7,7 +7,7 @@
 <body>
     <h1> Listado de chistes </h1>
     <ul>
-    {% for chiste in chistes %}
+    {% for chiste in object_list %}
         <li>
             <strong>{{ chiste.titulo }}</strong> <br>
             {{ chiste.texto }}<br>

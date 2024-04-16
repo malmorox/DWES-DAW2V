@@ -1,7 +1,8 @@
 from django.shortcuts import render
+from django.views import generic
 from .models import Chiste
 
 
-def listado_chistes(request):
-    chistes = Chiste.objects.all()
-    return render(request, 'chistes/listado_chistes.html', {'chistes': chistes})
+class ChisteListView(generic.ListView):
+    model = Chiste
+    template_name = 'chistes/listado_chistes.html'

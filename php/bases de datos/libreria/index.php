@@ -1,11 +1,13 @@
 <?php
     include_once 'conexion.php';
 
+    define('ANO_LIMITE_MOSTRAR_LIBROS', 2000);
+
     $errores_telefono = [];
     $errores_prestamo = [];
 
     $todos_libros = listadoLibros();
-    $libros_despues_2000 = listadoLibros(2000);
+    $libros_despues_2000 = listadoLibros(ANO_LIMITE_LIBROS);
     $todos_clientes = listadoClientes();
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") { 
