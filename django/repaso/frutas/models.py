@@ -1,0 +1,13 @@
+from django.db import models
+
+
+class Producto(models.Model):
+    nombre = models.CharField(max_length=80)
+    foto_producto = models.ImageField(upload_to='media/productos_fotos', null=True, blank=True)
+    descripcion = models.TextField()
+    inicio_temporada = models.DateTimeField()
+    final_temporada = models.DateTimeField()
+    disponible_todo_ano = models.BooleanField(default=False)
+    
+    def __str__(self):  
+        return self.title 
