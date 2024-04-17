@@ -2,17 +2,28 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title> Detalles de ciclos de </title>
+    <title> Detalles de ciclos </title>
 </head>
 <body>
     <h1> Detalle de los ciclos de la familia '{{ familia.nombre }}' </h1>
-    <ul>
-        {% for ciclo in ciclos %}
-            <li> 
-                <strong>{{ ciclo.nombre }}</strong> <br>
-                {{ ciclo.modulos }} 
-            </li>
-        {% endfor %}
-    </ul>
+    {% if ciclos %}
+        <ul>
+            {% for ciclo in ciclos %}
+                <li> 
+                    <strong>{{ ciclo.nombre }}</strong> <br>
+                    {{ ciclo.modulos }}
+                    {% comment %} <ul>
+                        {% for modulo in ciclo.modulos.split("\n") %}
+                            {% if modulo %}
+                                <li>{{ modulo }}</li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul> {% endcomment %} 
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p> Esta familia no tiene ciclos de momento. </p>
+    {% endif %}
 </body>
 </html>

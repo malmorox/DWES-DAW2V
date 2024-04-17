@@ -1,3 +1,6 @@
 from django.contrib import admin
+from .models import FamiliaProfesional, Ciclo
 
-# Register your models here.
+
+admin.site.register(FamiliaProfesional)
+admin.site.register(Ciclo)

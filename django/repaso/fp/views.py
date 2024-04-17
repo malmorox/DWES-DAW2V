@@ -20,5 +20,5 @@ class DetalleCiclosView(generic.DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         familia = self.get_object()
-        context['ciclos'] = familia.object.ciclo_set.all()
+        context['ciclos'] = familia.ciclo_set.all()
         return context
