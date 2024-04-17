@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title> Listado de chistes </title>
+</head>
+<body>
+    <h1> Listado de chistes </h1>
+    {% if chistes %}
+        <ul>
+        {% for chiste in chistes %}
+            <li>
+                <strong>{{ chiste.titulo }}</strong> <br>
+                {{ chiste.texto }}<br>
+                {% if chiste.adultos_si_no %}
+                    <span style="font-style: italic;">Para adultos</span><br>
+                {% endif %}
+                <small> Fecha de creación: {{ chiste.fecha_creacion }} </small>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p> No se han creado chistes de momento. </p>
+    {% endif %}
+</body>
+</html>
