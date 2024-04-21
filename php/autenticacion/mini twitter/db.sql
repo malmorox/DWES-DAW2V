@@ -6,3 +6,6 @@ CREATE TABLE usuarios (
     contraseña VARCHAR(255) NOT NULL,
     email VARCHAR(100) NOT NULL,
 );
+
+INSERT INTO usuarios (usuario, contraseña, email) VALUES
+('malmorox', '$2y$10$0N6oTYCuDQvOhJbqIv0Q1uCLJFBoqTODJXIqaGb4KPv9bHpQEQB1m', 'malmorox@practicando.com');

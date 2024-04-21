@@ -14,8 +14,10 @@
             }
     
             if (empty($errores)) {
-                $usuario = urlencode($usuario);
-                header("Location: exito.php?usuario=$usuario");
+                session_start();
+                $_SESSION['usuario'] = $usuario;
+
+                header("Location: privada.php");
                 exit();
             }
         } else {
