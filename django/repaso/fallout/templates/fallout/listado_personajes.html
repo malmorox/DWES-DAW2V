@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Personajes de Fallout </title>
+</head>
+<body>
+    <h1> Listado de personajes de Fallout </h1>
+    {% if personajes %}
+        <ul>
+            {% for personaje in personajes %}
+                <li>
+                    <a href="{% url 'detalle_personaje' personaje.slug %}">
+                        <img src="{{ personaje.foto_portada.url }}" alt="{{ personaje.nombre }}">
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p> No se han proporcionado personajes aún </p>
+    {% endif %}
+</body>
+</html>
