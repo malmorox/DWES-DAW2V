@@ -9,7 +9,9 @@
         $contrasena = isset($_POST['contrasena']) ? trim($_POST['contrasena']) : null;
 
         if (!empty($usuario) && !empty($contrasena)) {
-            if (!iniciarSesion($usuario, $contrasena)) {
+            $login_exitoso = iniciarSesion($usuario, $contrasena); 
+
+            if (!$login_exitoso) {
                 $errores['credenciales'] = "Credenciales incorrectas.";
             }
     

@@ -12,19 +12,22 @@
     }
 
     $usuario = obtenerInformacionDelUsuario($_SESSION['usuario']);
+    $cambio_exitoso = false;
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $nuevo_nombre_usuario = isset($_POST['nuevo_nombre_usuario']) ? $_POST['nuevo_nombre_usuario'] : null;
-    
-        if (($nuevo_nombre_usuario !== $usuario['usuario']) || (strtolower($nuevo_nombre_usuario) !== strtolower($usuario['usuario']))) {
-            $exito = editarNombreUsuario($nuevo_nombre_usuario, $usuario['id']);
-            if ($exito) {
-                $_SESSION['usuario'] = $nuevo_nombre_usuario;
+        
+        if (!empty($nuevo_nombre_usuario)) {
+            if (($nuevo_nombre_usuario !== $usuario['usuario']) && (strtolower($nuevo_nombre_usuario) !== strtolower($usuario['usuario']))) {
+                $cambio_exitoso = editarNombreUsuario($nuevo_nombre_usuario, $usuario['id']);
+                if ($cambio_exitoso) {
+                    $_SESSION['usuario'] = $nuevo_nombre_usuario;
+                } else {
+                    $errores['nuevo_nombre'] = "Error al actualizar el nombre de usuario.";
+                }
             } else {
-                $errores['nuevo_nombre'] = "Error al actualizar el nombre de usuario.";
+                $errores['nuevo_nombre'] = "El nuevo nombre no debe ser igual al actual";
             }
-        } else {
-            $errores['nuevo_nombre'] = "El nuevo nombre no debe ser igual al actual";
         }
     }
 
@@ -45,19 +48,19 @@
     <h1> ¡Bienvenido, <?= $usuario['usuario']; ?>! </h1>
     <p> Tu correo electrónico: <strong> <?= $usuario['email']; ?> </strong> </p>
     <h3> Editar perfil </h3>
-    <?php if ($exito): ?>
+    <?php if ($cambio_exitoso): ?>
         <span class="exito"> ¡El nombre de usuario se ha actualizado correctamente! </span> <br> <br>
     <?php endif; ?>
     <form action="perfil.php" method="post">
         <label for="nuevo_nombre_usuario"> Nuevo nombre de usuario: </label> <br>
         <input type="text" name="nuevo_nombre_usuario" value> <br>
-        <?php if (empty($nuevo_nombre_usuario)): ?>
+        <?php if (isset($_POST['guardar']) == "POST" && empty($nuevo_nombre_usuario)): ?>
             <span class="aviso"> Si no introduces nada se mantendrá tu nombre actual </span> <br>
         <?php elseif (isset($errores['nuevo_nombre'])): ?>
             <span class="error"> <?= $errores['nuevo_nombre'] ?> </span> <br>
         <?php endif; ?> <br>
 
-        <input type="submit" value="GUARDAR CAMBIOS">
+        <input type="submit" name="guardar" value="GUARDAR CAMBIOS">
     </form>
     <a href="logout.php"> Cerrar sesión </a>
 </body>

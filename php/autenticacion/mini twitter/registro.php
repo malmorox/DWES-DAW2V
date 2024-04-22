@@ -61,10 +61,10 @@
     <?php endif; ?>
     <form action="registro.php" method="post">
         <label for="usuario"> Nombre de usuario: </label> <br>
-        <input type="text" name="usuario" value="<?= isset($usuario) ? htmlspecialchars($usuario) : ''; ?>"><br>
+        <input type="text" name="usuario" value="<?= isset($usuario) ? htmlspecialchars($usuario) : ''; ?>"> <br>
         <?php if (isset($errores['usuario'])): ?>
-            <span class="error"><?= $errores['usuario']; ?></span>
-        <?php endif; ?>
+            <span class="error"><?= $errores['usuario']; ?> </span>
+        <?php endif; ?> <br>
 
         <label for="contrasena"> Contraseña: </label> <br>
         <input type="password" name="contrasena"> <br>
@@ -78,14 +78,14 @@
             <span class="error"><?= $errores['confirmar_contrasena']; ?> </span>
         <?php endif; ?> <br>
 
-        <label for="email">Correo electrónico:</label><br>
-        <input type="text" name="email" value="<?= isset($email) ? htmlspecialchars($email) : ''; ?>"><br>
+        <label for="email"> Correo electrónico: </label> <br>
+        <input type="text" name="email" value="<?= isset($email) ? htmlspecialchars($email) : ''; ?>"> <br>
         <?php if (isset($errores['email'])): ?>
             <span class="error"><?= $errores['email']; ?> </span>
         <?php endif; ?>
 
-        <input type="submit" value="Registrar">
+        <input type="submit" value="Registrar"> <br> <br>
     </form>
-    <a href="index.php">Ya tengo cuenta</a>
+    <a href="index.php"> Ya tengo cuenta </a>
 </body>
 </html>
