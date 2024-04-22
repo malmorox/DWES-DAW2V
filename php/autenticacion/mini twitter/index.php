@@ -5,8 +5,8 @@
     $errores = [];
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $usuario = isset($_POST['usuario']) ? $_POST['usuario'] : null;
-        $contrasena = isset($_POST['contrasena']) ? $_POST['contrasena'] : null;
+        $usuario = isset($_POST['usuario']) ? trim($_POST['usuario']) : null;
+        $contrasena = isset($_POST['contrasena']) ? trim($_POST['contrasena']) : null;
 
         if (!empty($usuario) && !empty($contrasena)) {
             if (!iniciarSesion($usuario, $contrasena)) {
@@ -33,8 +33,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Iniciar sesión </title>
-    <style>
-        .exito { color: #43CA57; }
+    <style> 
         .error { color: red; }
     </style>
 </head>
