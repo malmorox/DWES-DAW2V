@@ -13,5 +13,8 @@ class Ciclo(models.Model):
     modulos = models.TextField()
     familia = models.ForeignKey(FamiliaProfesional, on_delete=models.CASCADE)
 
+    def listado_modulos(self):
+        return self.modulos.split("\n")
+
     def __str__(self):
         return self.nombre

@@ -7,6 +7,6 @@
 </head>
 <body>
     <h2> ¡Gracias por completar la encuesta! </h2>
-    <p> <a href='encuesta.php'> Volver a la encuesta </a> </p>
+    <p> <a href='encuesta.php'> Volver a lo anterior </a> </p>
 </body>
 </html>

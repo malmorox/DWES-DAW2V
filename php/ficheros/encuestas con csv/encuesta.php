@@ -6,7 +6,7 @@
     $errores = [];
 
     $preguntas = [];
-    //Esto devuelve un puntero del archivo si se ha abierto correctamente  o false si no
+    //Esto devuelve un puntero del archivo si se ha abierto correctamente o false si no
     $archivo_preguntas = fopen(FICHERO_PREGUNTAS, 'r');
     if ($archivo_preguntas !== false) {
         while (($linea = fgetcsv($archivo_preguntas)) !== false) {
@@ -31,7 +31,7 @@
                 $pregunta_no_respondida = true;
                 break;
             }
-    }
+        }    
 
         if ($pregunta_no_respondida) {
             $errores['respuestas'] = "Por favor, responda a todas las preguntas";

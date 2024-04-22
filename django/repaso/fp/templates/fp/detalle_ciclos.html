@@ -11,14 +11,13 @@
             {% for ciclo in ciclos %}
                 <li> 
                     <strong>{{ ciclo.nombre }}</strong> <br>
-                    {{ ciclo.modulos }}
-                    {% comment %} <ul>
-                        {% for modulo in ciclo.modulos.split("\n") %}
+                    <ul>
+                        {% for modulo in ciclo.listado_modulos %}
                             {% if modulo %}
                                 <li>{{ modulo }}</li>
                             {% endif %}
                         {% endfor %}
-                    </ul> {% endcomment %} 
+                    </ul>
                 </li>
             {% endfor %}
         </ul>

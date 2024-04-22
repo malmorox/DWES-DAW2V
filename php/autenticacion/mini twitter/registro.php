@@ -34,7 +34,7 @@
             $registro_exitoso = registrarUsuario($usuario, $contrasena, $email);
     
             if ($registro_exitoso) {
-                header("Location: registro_exitoso.php");
+                header("Location: privada.php");
                 exit();
             } else {
                 $errores['registro'] = "Hubo un error al registrar el usuario. Por favor, inténtalo de nuevo.";

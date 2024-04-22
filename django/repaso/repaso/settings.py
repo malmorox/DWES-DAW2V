@@ -33,6 +33,8 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'chistes',
     'fp',
+    'frutas',
+    'fallout',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
