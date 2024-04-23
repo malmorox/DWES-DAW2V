@@ -7,7 +7,7 @@
     $errores_prestamo = [];
 
     $todos_libros = listadoLibros();
-    $libros_despues_2000 = listadoLibros(ANO_LIMITE_LIBROS);
+    $libros_despues_2000 = listadoLibros(ANO_LIMITE_MOSTRAR_LIBROS);
     $todos_clientes = listadoClientes();
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") { 
