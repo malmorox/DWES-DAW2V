@@ -10,4 +10,4 @@ class Producto(models.Model):
     disponible_todo_ano = models.BooleanField(default=False)
     
     def __str__(self):  
-        return self.nombre 
+        return self.nombre

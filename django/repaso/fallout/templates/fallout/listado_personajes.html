@@ -1,24 +1,50 @@
+<!-- {% load static %} -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Personajes de Fallout </title>
+    <style> 
+        .titulo {
+            text-align: center;
+        }
+
+        .contenedor-personajes {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .elemento-personaje {
+            width: 200px;
+            height: 200px;
+            margin: 10px;
+            text-align: center;
+            overflow: hidden;
+        }
+        
+        .imagen-personaje {
+            width: auto;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>    
 </head>
 <body>
-    <h1> Listado de personajes de Fallout </h1>
+    <h1 class="titulo"> Listado de personajes de Fallout </h1>
     {% if personajes %}
-        <ul>
+        <div class="contenedor-personajes">
             {% for personaje in personajes %}
-                <li>
-                    <a href="{% url 'detalle_personaje' personaje.slug %}">
-                        <img src="{{ personaje.foto_portada.url }}" alt="{{ personaje.nombre }}">
-                    </a>
-                </li>
+                <a href="{% url 'detalle_personaje' personaje.slug %}" class="elemento-personaje">
+                    <img src="{{ personaje.foto_portada.url }}" alt="{{ personaje.nombre }}" class="personaje-image">
+                </a>
             {% endfor %}
-        </ul>
+            </div>
     {% else %}
-        <p> No se han proporcionado personajes aún </p>
+        <p> No se han proporcionado personajes aun </p>
     {% endif %}
 </body>
 </html>
