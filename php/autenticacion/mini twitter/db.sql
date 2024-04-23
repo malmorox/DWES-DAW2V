@@ -10,7 +10,7 @@ CREATE TABLE usuarios (
 CREATE TABLE mensajes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     mensaje VARCHAR(255) NOT NULL,
-    fecha_tweet VARCHAR(100) NOT NULL
+    fecha_tweet DATETIME NOT NULL
 );
 
 INSERT INTO usuarios (usuario, contrasena, email) VALUES
