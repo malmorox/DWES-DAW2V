@@ -1,4 +1,3 @@
-<!-- {% load static %} -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -15,7 +14,7 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 10px;
+            gap: 20px;
         }
         
         .elemento-personaje {
@@ -39,7 +38,7 @@
         <div class="contenedor-personajes">
             {% for personaje in personajes %}
                 <a href="{% url 'detalle_personaje' personaje.slug %}" class="elemento-personaje">
-                    <img src="{{ personaje.foto_portada.url }}" alt="{{ personaje.nombre }}" class="personaje-image">
+                    <img src="{{ personaje.foto_portada.url }}" alt="{{ personaje.nombre }}" class="imagen-personaje">
                 </a>
             {% endfor %}
             </div>
