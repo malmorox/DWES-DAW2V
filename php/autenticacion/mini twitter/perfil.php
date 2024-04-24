@@ -38,11 +38,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Perfil de usuario </title>
-    <style>
-        .exito { color: #43CA57; }
-        .error { color: red; }
-        .aviso { color: #FFB900; }
-    </style>
+    <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
     <h1> ¡Bienvenido, <?= $usuario['usuario']; ?>! </h1>

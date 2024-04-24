@@ -13,16 +13,21 @@
         $descripcion = $_POST['descripcion'] ;
         $foto = $_FILES['foto'];
 
+        $fecha_actual = date('Y-m-d');
         if (empty($fecha)) {
             $errores['fecha'] = 'El campo fecha es obligatorio';
+        } elseif ($fecha < $fecha_actual) {
+            $errores['fecha'] = 'La fecha debe ser hoy o en el futuro';
         }
 
         if (empty($lugar)) {
             $errores['lugar'] = 'El campo lugar es obligatorio';
         }
 
-        if (empty($foto['name'])) {
-            $errores['foto'] = 'El campo foto es obligatorio';
+        if ($foto['error'] !== UPLOAD_ERR_OK) {
+            $errores['foto'] = 'Error al subir la foto';
+        } elseif ($foto['type'] !== 'image/jpeg') {
+            $errores['foto'] = 'El archivo debe ser una imagen JPG';
         }
 
         if (empty($errores)) {
@@ -39,11 +44,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Día de la tierra </title>
+    <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
-    
-    <h2> Listado de acciones registradas </h2>
-    <button onclick="mostrarFormulario()">Registrar Acción</button>
+    <header class="header">
+        <h1> Listado de acciones registradas </h1>
+        <button id="boton-form"> Registrar acción </button>
+    </header>
     <table>
         <tr>
             <th> Fecha </th>
@@ -66,23 +73,33 @@
     <div class="popup" id="formularioPopup">
         <h2> Registro de acciones ambientales </h2>
         <form action="form.php" method="post" enctype="multipart/form-data">
-            <label for="fecha"> Fecha: </label>
+            <label for="fecha"> Fecha: </label> <br>
             <input type="date" name="fecha"> <br>
-            
-            <label for="lugar"> Lugar: </label>
+            <?php if (isset($errores['fecha'])): ?>
+                <span class="error"> <?= $errores['fecha'];?> </span> 
+            <?php endif;?> <br>
+
+            <label for="lugar"> Lugar: </label> <br>
             <input type="text" name="lugar"> <br>
+            <?php if (isset($errores['lugar'])): ?>
+                <span class="error"> <?= $errores['lugar'];?> </span>
+            <?php endif;?> <br>
             
-            <label for="nombre"> Nombre: </label> <br>
-            <input type="text" name="nombre"><br>
+            <label for="nombre"> Nombre <span class="info"> (opcional) </span>: </label> <br>
+            <input type="text" name="nombre"> <br> <br>
             
-            <label for="descripcion"> Descripción (opcional): </label> <br>
-            <textarea name="descripcion" rows="4" cols="50"> </textarea> <br>
+            <label for="descripcion"> Descripción <span class="info"> (opcional) </span>: </label> <br>
+            <textarea name="descripcion" rows="4" cols="30"> </textarea> <br> <br>
             
             <label for="foto"> Foto: </label>
-            <input type="file" name="foto" required><br>
+            <input type="file" name="foto" required> <br>
+            <?php if (isset($errores['foto'])): ?>
+                <span class="error"> <?= $errores['foto'];?> </span>
+            <?php endif;?> <br>
             
             <input type="submit" name="registrar" value="REGISTRAR ACCIÓN">
         </form>
     </div>
+    <script src="js/scripts.js"></script>
 </body>
 </html>

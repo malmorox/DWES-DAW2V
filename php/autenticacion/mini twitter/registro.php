@@ -25,9 +25,9 @@
         }
     
         if (empty($email)) {
-            $errores['email'] = "Debes introducir un correo electrónico.";
+            $errores['email'] = "Debes introducir un correo electronico";
         } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $errores['email'] = "El correo electrónico no es válido.";
+            $errores['email'] = "El correo electrónico no es valido";
         }
     
         if (empty($errores)) {
@@ -50,9 +50,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Registro </title>
-    <style>
-        .error { color: red; }
-    </style>
+    <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
     <h1> Regístrate </h1>

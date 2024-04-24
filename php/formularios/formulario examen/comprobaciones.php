@@ -3,8 +3,8 @@
 $db = DBConnect::getInstance();
 $conn = $db->getConnection();
 
-public $errorList = [];
-public $generos = [];
+$errorList = [];
+$generos = [];
 $autentificacion = false;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enviar'])) {

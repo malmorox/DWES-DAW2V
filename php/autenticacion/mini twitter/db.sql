@@ -7,11 +7,13 @@ CREATE TABLE usuarios (
     email VARCHAR(100) NOT NULL
 );
 
-CREATE TABLE mensajes (
+CREATE TABLE tweets (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    id_usuario INT NOT NULL,
     mensaje VARCHAR(255) NOT NULL,
-    fecha_tweet DATETIME NOT NULL
-);
+    fecha_hora DATETIME NOT NULL,
+    FOREIGN KEY (id_usuario) REFERENCES usuarios(id)
+); 
 
 INSERT INTO usuarios (usuario, contrasena, email) VALUES
 ('malmorox', '$2y$10$0N6oTYCuDQvOhJbqIv0Q1uCLJFBoqTODJXIqaGb4KPv9bHpQEQB1m', 'malmorox@practicando.com');
