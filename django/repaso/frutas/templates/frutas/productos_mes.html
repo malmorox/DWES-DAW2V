@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Productos por Mes</title>
+</head>
+<body>
+    <h1> Productos disponibles en {{ mes }} </h1>
+    <ul>
+        {% for producto in productos %}
+            <li>{{ producto.nombre }}</li>
+        {% empty %}
+            <li>No hay productos disponibles para este mes.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

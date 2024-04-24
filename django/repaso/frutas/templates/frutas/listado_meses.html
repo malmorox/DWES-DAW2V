@@ -1,0 +1,16 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Listado de meses</title>
+</head>
+<body>
+    <h1> Listado de meses </h1>
+    <ul>
+        {% for mes in meses %}
+            <li><a href="{% url 'productos_por_mes' mes %}"> {{ mes }} </a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
