@@ -12,6 +12,7 @@
     }
 
     $usuario = obtenerInformacionDelUsuario($_SESSION['usuario']);
+    $tweets_usuario = mostrarTweets($usuario['id']);
     $cambio_exitoso = false;
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {

@@ -73,5 +73,37 @@
         return $mensajes;
     }
 
+    function validarCorreo($email) {
+        $db = conexion();
+        $consulta = $db->prepare("SELECT * FROM usuarios WHERE email = :email");
+        $consulta->bindParam(':email', $email, PDO::PARAM_STR);
+        $consulta->execute();
+        $usuario = $consulta->fetch(PDO::FETCH_ASSOC);
+    
+        if ($usuario) {
+            return true;
+        }
+    
+        return false;
+    }
+
+    function enviarCorreoRecuperacion($email) {
+        $db = conexion();
+        $consulta = $db->prepare("SELECT * FROM usuarios WHERE email = :email");
+        $consulta->bindParam(':email', $email, PDO::PARAM_STR);
+        $consulta->execute();
+        $usuario = $consulta->fetch(PDO::FETCH_ASSOC);
+    
+        if ($usuario) {
+            $token = bin2hex(random_bytes(50));
+            $consulta = $db->prepare("INSERT INTO recuperacion (id_usuario, token) VALUES (:id_usuario, :token)");
+            $consulta->bindParam(':id_usuario', $usuario['id'], PDO::PARAM_INT);
+            $consulta->bindParam(':token', $token, PDO::PARAM_STR);
+            $consulta->execute();
+    
+            $mensaje = "Haz click en el siguiente enlace para recuperar tu contraseña: http://localhost/recuperar.php?token=$token";
+            mail($email, "Recuperación de contraseña", $mensaje);
+        }
+    }
 
 ?>
