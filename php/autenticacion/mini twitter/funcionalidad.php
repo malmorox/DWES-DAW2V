@@ -79,7 +79,7 @@
         $consulta->bindParam(':email', $email, PDO::PARAM_STR);
         $consulta->execute();
         $usuario = $consulta->fetch(PDO::FETCH_ASSOC);
-    
+        // Si existe el usuario asociado con ese correo retorna true, sino false
         if ($usuario) {
             return true;
         }

@@ -116,22 +116,22 @@ Disallow root login remotely? [Y/n] => Y
 Remove test database and access to it? [Y/n] => Y
 Reload privilege tables now? [Y/n] => Y
 ```
-### Instalación de MkDocs
 ```apache
-$=> pip install mkdocs
+$=> sudo apt install php-mysql
 ```
 
-### Despliegue de MkDocs
-Creamos un nuevo proyecto MkDocs en el directorio "/var/www/laura":
+### Configuracion de usuario
 ```apache
-$=> sudo mkdocs new /var/www/laura
+$=> sudo adduser marcos
+        New password: marcos
+        Retype new password: marcos
+        Is the information correct? [Y/n] Y
 ```
 ```apache
-$=> cd /var/www/laura
+$=> sudo mkdir /var/www/marcos
 ```
-Este comando construye el sitio web de MkDocs en el directorio actual:
 ```apache
-$=> sudo mkdocs build
+$=> sudo chown marcos:marcos /var/www/marcos
 ```
 
 ### Configuración de sitio con apache2
@@ -149,5 +149,16 @@ $=> sudo nano /etc/apache2/sites-available/005-marcos.conf
     CustomLog ${APACHE_LOG_DIR}/marcos.access.log combined
 </VirtualHost>
 ```
+```apache
+$=> sudo a2ensite 005-marcos.conf
+```
+```apache
+$=> sudo systemctl reload apache2
+```
+
+### FileZilla
+
+- Descomprimimos el Wordpress omprimido que hemos descargado
+- Nos conectamos con FileZilla al servidor y subimos todos los archivos de la carpeta descomprimida a /var/www/marcos
 
 ## MOODLE

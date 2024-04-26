@@ -5,6 +5,7 @@ CREATE TABLE usuarios (
     usuario VARCHAR(50) NOT NULL UNIQUE,
     contrasena VARCHAR(255) NOT NULL,
     email VARCHAR(100) NOT NULL
+    foto_perfil VARCHAR(255)
 );
 
 CREATE TABLE tweets (
