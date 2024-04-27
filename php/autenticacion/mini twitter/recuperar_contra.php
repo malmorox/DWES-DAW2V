@@ -1,27 +1,26 @@
 <?php
+
+    require_once 'funcionalidad.php';
+
+    $error = false;
+
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["enviar"])) {
-        if (isset($_POST["correo"]) && !empty($_POST["correo"])) {
-            // Aquí iría tu lógica de autenticación
-            $correo_valido = true; // Simulando que se ha validado el correo
-            
-            if ($correo_valido) {
-                // Si el correo es válido, enviar el correo de recuperación
-                enviarCorreoRecuperacion($_POST["correo"]);
-                echo "Se ha enviado un correo de recuperación a {$_POST['correo']}";
-            } else {
-                // Si el correo no es válido, mostrar un mensaje de error
-                echo "El correo electrónico no es válido";
-            }
-        } else {
-            // Si no se ha enviado un correo electrónico, mostrar un mensaje de error
-            echo "Por favor ingresa un correo electrónico";
+        $correo_recuperacion = isset($_POST["correo_recuperacion"]) ? $_POST["correo_recuperacion"] : null;
+
+        if (empty($correo_recuperacion)) {
+            $error = true;
+            $mensaje_error = "Por favor ingresa un correo electrónico";
+        } elseif (!validarCorreo($correo_recuperacion)) {
+            $error = true;
+            $mensaje_error = "El correo electrónico ingresado no está asociado a ninguna cuenta";
         }
-    }
-    
-    // Función para enviar el correo de recuperación (ejemplo básico)
-    function enviarCorreoRecuperacion($correo) {
-        // Aquí iría tu lógica para enviar el correo de recuperación
-        // Por ejemplo, utilizando PHPMailer
+
+        if (!$error) {
+            $correo_enviado = enviarCorreoRecuperacion($correo_recuperacion);
+            if ($correo_enviado) {
+                $mensaje_exito = "Se ha enviado exitosamente el correo a tu email";
+            }    
+        }
     }
 
 ?>
@@ -34,10 +33,18 @@
     <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
-    <h2> Recupera tu contraseña</h2>
+    <h2> Recupera tu contraseña </h2>
+    <?php if (isset($correo_enviado) && $correo_enviado) : ?>
+        <span class="exito"> <?= $mensaje_exito; ?> </span>
+    <?php elseif (isset($correo_enviado)): ?> 
+        <span class="error"> Ha habido un error al enviar el correo electrónico </span>
+    <?php endif; ?>
     <form action="recuperar_contra.php" method="post">
-        <label for="correo"> Correo electrónico asociado a la cuenta: </label> <br>
-        <input type="email" name="correo"> <br> <br>
+        <label for="correo_recuperacion"> Correo electrónico asociado a la cuenta: </label> <br>
+        <input type="email" name="correo_recuperacion"> <br> <br>
+        <?php if (isset($mensaje_error)) : ?>
+            <span class="error"> <?= $mensaje_error; ?> </span> <br> <br>
+        <?php endif; ?>
 
         <input type="submit" name="enviar" value="ENVIAR CORREO">
     </form>

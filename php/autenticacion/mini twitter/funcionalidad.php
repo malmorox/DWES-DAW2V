@@ -2,6 +2,10 @@
 
     require_once 'conexion.php';
 
+    require 'vendor/PHPMailer/src/PHPMailer.php';
+    require 'vendor/PHPMailer/src/SMTP.php';
+    require 'vendor/PHPMailer/src/Exception.php';
+
     function registrarUsuario($usuario, $contrasena, $email) {
         $db = conexion();
         $contrasena = password_hash($contrasena, PASSWORD_DEFAULT);
@@ -37,7 +41,16 @@
     
         return $usuario;
     }
+
+    function editarFotoPerfil($foto, $id_usuario) {
+        $db = conexion();
+        $consulta = $db->prepare("UPDATE usuarios SET foto = :foto WHERE id = :id_usuario");
+        $consulta->bindParam(':foto', $foto, PDO::PARAM_STR);
+        $consulta->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
+        $resultado = $consulta->execute();
     
+        return $resultado;
+    }
 
     function editarNombreUsuario($nuevo_nombreusuario, $id_usuario) {
         $db = conexion();
@@ -88,21 +101,26 @@
     }
 
     function enviarCorreoRecuperacion($email) {
-        $db = conexion();
-        $consulta = $db->prepare("SELECT * FROM usuarios WHERE email = :email");
-        $consulta->bindParam(':email', $email, PDO::PARAM_STR);
-        $consulta->execute();
-        $usuario = $consulta->fetch(PDO::FETCH_ASSOC);
-    
-        if ($usuario) {
-            $token = bin2hex(random_bytes(50));
-            $consulta = $db->prepare("INSERT INTO recuperacion (id_usuario, token) VALUES (:id_usuario, :token)");
-            $consulta->bindParam(':id_usuario', $usuario['id'], PDO::PARAM_INT);
-            $consulta->bindParam(':token', $token, PDO::PARAM_STR);
-            $consulta->execute();
-    
-            $mensaje = "Haz click en el siguiente enlace para recuperar tu contraseña: http://localhost/recuperar.php?token=$token";
-            mail($email, "Recuperación de contraseña", $mensaje);
+        $mail = new PHPMailer(true);
+
+        try {
+            $mail->isSMTP();
+            $mail->Host = 'tu_servidor_smtp';
+            $mail->SMTPAuth = true;
+            $mail->Username = 'tu_correo';
+            $mail->Password = 'tu_contraseña';
+            $mail->SMTPSecure = 'tls';
+            $mail->Port = 587;
+
+            $mail->setFrom('tu_correo', 'Nombre Remitente');
+            $mail->addAddress($email, $usuario['usuario']);
+            $mail->Subject = 'Recuperación de contraseña';
+            $mail->Body = "Haz click en el siguiente enlace para recuperar tu contraseña: http://localhost/twitter/recuperar.php?token=$token";
+
+            $mail->send();
+            return true;
+        } catch (Exception) {
+            return false;
         }
     }
 
