@@ -5,13 +5,10 @@
     $todos_tweets = mostrarTweets();
 
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["tweet"])) {
-        // Obtiene el contenido del tweet del formulario
         $tweet = $_POST["tweet"];
         
-        // Guarda el tweet en la base de datos o en otro lugar según tu lógica de aplicación
-        guardarTweet($tweet);
+        publicarTweet($tweet);
         
-        // Redirige para evitar envíos duplicados si el usuario actualiza la página
         header("Location: {$_SERVER['REQUEST_URI']}");
         exit();
     }
@@ -26,8 +23,9 @@
     <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
-    <h1>Twitter Clone</h1>
-    
+    <header> 
+        <h1> Inicio </h1>
+    </header> 
     <form action="privada.php" method="post">
         <label for="tweet">Nuevo Tweet:</label><br>
         <textarea name="tweet" id="tweet" rows="4" cols="50"></textarea><br>
@@ -35,8 +33,6 @@
     </form>
     
     <hr>
-    
-    <!-- Lista de todos los tweets existentes -->
     <h2>Tweets anteriores:</h2>
     <?php if (!empty($todos_tweets)): ?>
         <ul>

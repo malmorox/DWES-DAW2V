@@ -3,6 +3,7 @@ DROP TABLE IF EXISTS usuarios;
 CREATE TABLE usuarios (
     id INT AUTO_INCREMENT PRIMARY KEY,
     usuario VARCHAR(50) NOT NULL UNIQUE,
+    biografia VARCHAR(100),
     contrasena VARCHAR(255) NOT NULL,
     email VARCHAR(100) NOT NULL
     foto_perfil VARCHAR(255)
@@ -14,6 +15,9 @@ CREATE TABLE tweets (
     mensaje VARCHAR(255) NOT NULL,
     fecha_hora DATETIME NOT NULL,
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id)
+); 
+
+CREATE TABLE tokens (
 ); 
 
 INSERT INTO usuarios (usuario, contrasena, email) VALUES

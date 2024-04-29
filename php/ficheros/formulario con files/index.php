@@ -69,6 +69,9 @@
             </tr>
         <?php endforeach;?>
     </table>
+    <?php for ($i = 1; $i <= $numeroPaginas; $i++) : ?>
+        <a href="?pagina=<?= $i ?>"><?= $i ?></a>
+    <?php endfor; ?>
 
     <div class="popup" id="formularioPopup">
         <h2> Registro de acciones ambientales </h2>
@@ -92,7 +95,7 @@
             <textarea name="descripcion" rows="4" cols="30"> </textarea> <br> <br>
             
             <label for="foto"> Foto: </label>
-            <input type="file" name="foto" required> <br>
+            <input type="file" name="foto"> <br>
             <?php if (isset($errores['foto'])): ?>
                 <span class="error"> <?= $errores['foto'];?> </span>
             <?php endif;?> <br>

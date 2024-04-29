@@ -1,6 +1,14 @@
 <?php
 
-    require_once 'conexion.php';
+    require 'conexion.php';
+
+    define("ACCIONES_POR_PAGINA", 3);
+
+    $conteo = $db->query("SELECT COUNT(*) FROM acciones");
+    $totalAcciones = $conteo->fetch();
+
+    $numeroPaginas = ceil($totalAcciones[0] / ACCIONES_POR_PAGINA);
+    $primerElementoPagina = (isset($_GET['pagina']) && is_numeric($_GET['pagina'])) ? $_GET['pagina'] - 1 * ACCIONES_POR_PAGINA : 1;
 
     function insertarAccion($fecha, $lugar, $nombre, $descripcion, $foto) {
         $insert = "INSERT INTO acciones (fecha, lugar, nombre, descripcion, foto) VALUES (:fecha, :lugar, :nombre, :descripcion, :foto)";
@@ -14,69 +22,23 @@
     }
 
     function listadoAcciones($orden = null) {
+        global $db;
+        global $primerElementoPagina;
         $select = "SELECT * FROM acciones";
         if ($orden === 'ascendente') {
             $select .= " ORDER BY fecha ASC";
         } elseif ($orden === 'descendente') {
             $select .= " ORDER BY fecha DESC";
         }
+        $select .= " LIMIT :offset, :limite";
+        //$select .= " LIMIT :limit OFFSET :offset";
         $consulta = $db->prepare($select);
+        $consulta->bindValue(':limite', ACCIONES_POR_PAGINA, PDO::PARAM_INT);
+        $consulta->bindValue(':offset', $primerElementoPagina, PDO::PARAM_INT);
         $consulta->execute();
         $acciones = $consulta->fetchAll(PDO::FETCH_ASSOC);
     
         return $acciones;
     }
-
-    function validarFoto($foto) {
-        $directorio = "uploads/";
-
-        if(isset($_FILES["imagen_perfil"])){
-    
-        $archivo = $directorio . basename($_FILES["imagen_perfil"]["name"]);
-        $nombreArchivo = basename($_FILES["imagen_perfil"]["name"]);
-        $formatoImagen = strtolower(pathinfo($archivo, PATHINFO_EXTENSION));
-    
-        // Verifica si es una imagen real o una imagen falsa
-        $check = getimagesize($_FILES["imagen_perfil"]["tmp_name"]);
-        if($check !== false) {
-            $subir = 1;
-        } else {
-            echo "El archivo no es una imagen.";
-            $subir = 0;
-        }
-
-    // Si el archivo ya existe, añadir un número al final
-        $contador = 1;
-        while (file_exists($archivo)) {
-            $nombreSinExtension = pathinfo($nombreArchivo, PATHINFO_FILENAME);
-            $archivo = $directorio . $nombreSinExtension . '-' . $contador . '.' . $formatoImagen;
-            $contador++;
-        }
-
-        //TODO: Faltan verificaciones de tamaño y tipo.
-
-        if ($subir == 1) {
-            if (move_uploaded_file($_FILES["imagen_perfil"]["tmp_name"], $archivo)) {
-                // Guardar la ruta de la imagen en la base de datos
-                // TODO: 
-
-                $sql = "UPDATE usuarios (perfil_img) VALUES (:path_imagen_perfil) WHERE id = :id_user";
-                $consulta = $db->prepare($sql);
-                $consulta->bindParam(":path_imagen_perfil", $archivo, PDO::PARAM_STR);
-                $consulta->bindParam(":id", $id, PDO::PARAM_INT);
-                $resultado = $consulta->execute();
-
-                if($resultado){{
-                    echo "La imagen ". basename($_FILES["imagen_perfil"]["name"]). " ha sido subida.";
-                } else {
-                    echo "Error al guardar la imagen en la base de datos: " . $conn->error;
-                }
-                
-            } else {
-                echo "Hubo un error al subir tu archivo.";
-            }
-        }
-    }
-    }}
 
 ?>

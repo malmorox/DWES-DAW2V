@@ -65,13 +65,13 @@
         <?php endif; ?> <br>
 
         <label for="contrasena"> Contraseña: </label> <br>
-        <input type="password" name="contrasena"> <br>
+        <input type="password" name="contrasena" value="<?= isset($contrasena) ? htmlspecialchars($contrasena) : ''; ?>"> <br>
         <?php if (isset($errores['contrasena'])): ?>
             <span class="error"><?= $errores['contrasena']; ?> </span>
         <?php endif; ?> <br>
 
         <label for="confirmar_contrasena"> Confirmar contraseña: </label> <br>
-        <input type="password" name="confirmar_contrasena"> <br>
+        <input type="password" name="confirmar_contrasena" value="<?= isset($confirmar_contrasena) ? htmlspecialchars($confirmar_contrasena) : ''; ?>"> <br>
         <?php if (isset($errores['confirmar_contrasena'])): ?>
             <span class="error"><?= $errores['confirmar_contrasena']; ?> </span>
         <?php endif; ?> <br>
