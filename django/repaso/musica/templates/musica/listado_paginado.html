@@ -2,10 +2,10 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Listado de meses</title>
+    <title> Listado de música </title>
 </head>
 <body>
-    <h1> Listado de meses </h1>
+    <h1> Listado de música páginado </h1>
     <ul>
         {% for mes in meses %}
             <li><a href="{% url 'productos_por_mes' mes %}"> {{ mes }} </a></li>
