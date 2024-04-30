@@ -1,38 +1,3 @@
-<?php
-
-    require_once 'funcionalidad.php';
-
-    $errores = [];
-
-    session_start();
-
-    if (!isset($_SESSION['usuario'])) {
-        header("Location: index.php");
-        exit();
-    }
-
-    $usuario = obtenerInformacionDelUsuario($_SESSION['usuario']);
-    $tweets_usuario = mostrarTweets($usuario['id']);
-    $cambio_exitoso = false;
-
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $nuevo_nombre_usuario = isset($_POST['nuevo_nombre_usuario']) ? trim($_POST['nuevo_nombre_usuario']) : null;
-        
-        if (!empty($nuevo_nombre_usuario)) {
-            if (($nuevo_nombre_usuario !== $usuario['usuario']) && (strtolower($nuevo_nombre_usuario) !== strtolower($usuario['usuario']))) {
-                $cambio_exitoso = editarInfoUsuario($nuevo_nombre_usuario, 'nombre', $usuario['id']);
-                if ($cambio_exitoso) {
-                    $_SESSION['usuario'] = $nuevo_nombre_usuario;
-                } else {
-                    $errores['nuevo_nombre'] = "Error al actualizar el nombre de usuario.";
-                }
-            } else {
-                $errores['nuevo_nombre'] = "El nuevo nombre no debe ser igual al actual";
-            }
-        }
-    }
-
-?> 
 <!DOCTYPE html>
 <html lang="en">
 <head>

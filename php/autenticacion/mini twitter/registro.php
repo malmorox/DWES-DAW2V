@@ -84,6 +84,6 @@
 
         <input type="submit" value="Registrar"> <br> <br>
     </form>
-    <a href="index.php"> Ya tengo cuenta </a>
+    <a href="login.php"> Ya tengo cuenta </a>
 </body>
 </html>

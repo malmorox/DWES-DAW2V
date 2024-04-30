@@ -17,5 +17,8 @@ CREATE TABLE tweets (
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id)
 );
 
+CREATE TABLE tokens (
+);
+
 INSERT INTO usuarios (usuario, contrasena, email) VALUES
-('malmorox', '$2y$10$0N6oTYCuDQvOhJbqIv0Q1uCLJFBoqTODJXIqaGb4KPv9bHpQEQB1m', 'marcos.almorox@gmail.com');
+('malmorox', '$2y$10$0N6oTYCuDQvOhJbqIv0Q1uCLJFBoqTODJXIqaGb4KPv9bHpQEQB1m', 'malmoroxcabrera@educa.madrid.org');

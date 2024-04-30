@@ -118,8 +118,8 @@
             $mail->isSMTP();
             $mail->Host = 'smtp.gmail.com';
             $mail->SMTPAuth = true;
-            $mail->Username = 'meteordatagestion@gmail.com';
-            $mail->Password = 'Meteor.12345';
+            $mail->Username = 'malmoroxcabrera@educa.madrid.org';
+            $mail->Password = 'Almoroxii1133';
             $mail->SMTPSecure = 'tls';
             $mail->Port = 587;
 
