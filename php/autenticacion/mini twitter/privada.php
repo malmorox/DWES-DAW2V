@@ -26,9 +26,10 @@
 <body>
     <header> 
         <h1> Inicio </h1>
-        <a href="">
+        <a href="perfil.php">
             <div>
-
+                <span id=""> <?= "@" . srttolower($usuario['usuario']); ?></span>
+                <img src="" alt="">
             </div>
         </a>
     </header> 

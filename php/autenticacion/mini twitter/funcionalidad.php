@@ -135,4 +135,15 @@
         }
     }
 
+    function resetearContrasena($token, $nueva_contrasena) {
+        $db = conexion();
+        $contrasena_hasheada = password_hash($nueva_contrasena, PASSWORD_DEFAULT);
+        $consulta = $db->prepare("UPDATE usuarios SET contrasena = :contrasena WHERE token = :token");
+        $consulta->bindParam(':contrasena', $contrasena_hasheada, PDO::PARAM_STR);
+        $consulta->bindParam(':token', $token, PDO::PARAM_STR);
+        $resultado = $consulta->execute();
+    
+        return $resultado;
+    }
+
 ?>

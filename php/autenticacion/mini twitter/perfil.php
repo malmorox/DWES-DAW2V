@@ -60,5 +60,6 @@
         <input type="submit" name="guardar" value="GUARDAR CAMBIOS">
     </form>
     <a href="logout.php"> Cerrar sesión </a>
+    <script src="js/script.js"></script>
 </body>
 </html>
