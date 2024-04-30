@@ -18,7 +18,7 @@
         if (!$error) {
             $correo_enviado = enviarCorreoRecuperacion($correo_recuperacion);
             if ($correo_enviado) {
-                $mensaje_exito = "Se ha enviado exitosamente el correo a tu email";
+                $mensaje_exito = "Se ha enviado exitosamente a tu email";
             }    
         }
     }
@@ -41,10 +41,10 @@
     <?php endif; ?>
     <form action="recuperar_contra.php" method="post">
         <label for="correo_recuperacion"> Correo electrónico asociado a la cuenta: </label> <br>
-        <input type="email" name="correo_recuperacion"> <br> <br>
+        <input type="email" name="correo_recuperacion"> <br>
         <?php if (isset($mensaje_error)) : ?>
-            <span class="error"> <?= $mensaje_error; ?> </span> <br> <br>
-        <?php endif; ?>
+            <span class="error"> <?= $mensaje_error; ?> </span>
+        <?php endif; ?> <br>
 
         <input type="submit" name="enviar" value="ENVIAR CORREO">
     </form>

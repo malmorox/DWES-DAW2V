@@ -2,16 +2,18 @@
 
     require_once 'conexion.php';
 
-    require 'vendor/PHPMailer/src/PHPMailer.php';
-    require 'vendor/PHPMailer/src/SMTP.php';
-    require 'vendor/PHPMailer/src/Exception.php';
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\SMTP;
+    use PHPMailer\PHPMailer\Exception;
+
+    require 'vendor/autoload.php';
 
     function registrarUsuario($usuario, $contrasena, $email) {
         $db = conexion();
-        $contrasena = password_hash($contrasena, PASSWORD_DEFAULT);
+        $contrasena_hasheada = password_hash($contrasena, PASSWORD_DEFAULT);
         $consulta = $db->prepare("INSERT INTO usuarios (usuario, contrasena) VALUES (:usuario, :contrasena)");
         $consulta->bindParam(':usuario', $usuario, PDO::PARAM_STR);
-        $consulta->bindParam(':contrasena', $contrasena, PDO::PARAM_STR);
+        $consulta->bindParam(':contrasena', $contrasena_hasheada, PDO::PARAM_STR);
         $consulta->bindParam(':email', $email, PDO::PARAM_STR);
         $resultado = $consulta->execute();
         // Retorna true si hace el insert y false si no lo hace
@@ -42,22 +44,30 @@
         return $usuario;
     }
 
-    function editarFotoPerfil($foto, $id_usuario) {
+    function editarInfoUsuario($nuevo_valor, $tipo_info, $id_usuario) {
         $db = conexion();
-        $consulta = $db->prepare("UPDATE usuarios SET foto = :foto WHERE id = :id_usuario");
-        $consulta->bindParam(':foto', $foto, PDO::PARAM_STR);
-        $consulta->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
-        $resultado = $consulta->execute();
+        $consulta = null;
+        $resultado = false;
     
-        return $resultado;
-    }
-
-    function editarNombreUsuario($nuevo_nombreusuario, $id_usuario) {
-        $db = conexion();
-        $consulta = $db->prepare("UPDATE usuarios SET usuario = :nuevo_nombreusuario WHERE id = :id_usuario");
-        $consulta->bindParam(':nuevo_nombreusuario', $nuevo_nombreusuario, PDO::PARAM_STR);
-        $consulta->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
-        $resultado = $consulta->execute();
+        switch ($tipo_info) {
+            case 'nombre':
+                $consulta = $db->prepare("UPDATE usuarios SET usuario = :nuevo_valor WHERE id = :id_usuario");
+                break;
+            case 'biografia':
+                $consulta = $db->prepare("UPDATE usuarios SET biografia = :nuevo_valor WHERE id = :id_usuario");
+                break;
+            case 'foto_perfil':
+                $consulta = $db->prepare("UPDATE usuarios SET foto_perfil = :nuevo_valor WHERE id = :id_usuario");
+                break;
+            default:
+                return $resultado;
+        }
+    
+        if ($consulta) {
+            $consulta->bindParam(':nuevo_valor', $nuevo_valor, PDO::PARAM_STR);
+            $consulta->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
+            $resultado = $consulta->execute();
+        }
     
         return $resultado;
     }
@@ -78,7 +88,7 @@
             $consulta = $db->prepare("SELECT * FROM tweets WHERE id_usuario = :id_usuario ORDER BY fecha_hora DESC");
             $consulta->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
         } else {
-            $consulta = $db->prepare("SELECT * FROM mensajes ORDER BY fecha_hora DESC");
+            $consulta = $db->prepare("SELECT * FROM tweets ORDER BY fecha_hora DESC");
         }
         $consulta->execute();
         $mensajes = $consulta->fetchAll(PDO::FETCH_ASSOC);
@@ -104,18 +114,19 @@
         $mail = new PHPMailer(true);
 
         try {
+            $mail->SMTPDebug = SMTP::DEBUG_SERVER;
             $mail->isSMTP();
-            $mail->Host = 'tu_servidor_smtp';
+            $mail->Host = 'smtp.gmail.com';
             $mail->SMTPAuth = true;
-            $mail->Username = 'tu_correo';
-            $mail->Password = 'tu_contraseña';
+            $mail->Username = 'meteordatagestion@gmail.com';
+            $mail->Password = 'Meteor.12345';
             $mail->SMTPSecure = 'tls';
             $mail->Port = 587;
 
-            $mail->setFrom('tu_correo', 'Nombre Remitente');
-            $mail->addAddress($email, $usuario['usuario']);
+            $mail->setFrom('meteordatagestion@gmail.com', 'Marcos Almorox');
+            $mail->addAddress($email, 'Ejemplo');
             $mail->Subject = 'Recuperación de contraseña';
-            $mail->Body = "Haz click en el siguiente enlace para recuperar tu contraseña: http://localhost/twitter/recuperar.php?token=$token";
+            $mail->Body = "Haz click en el siguiente enlace para recuperar tu contraseña: http://localhost/twitter/resetear_contra.php";
 
             $mail->send();
             return true;

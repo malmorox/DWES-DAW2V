@@ -2,6 +2,7 @@
 
     require_once 'funcionalidad.php';
 
+    $usuario = obtenerInformacionDelUsuario($_SESSION['usuario']);
     $todos_tweets = mostrarTweets();
 
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["tweet"])) {
@@ -25,6 +26,11 @@
 <body>
     <header> 
         <h1> Inicio </h1>
+        <a href="">
+            <div>
+
+            </div>
+        </a>
     </header> 
     <form action="privada.php" method="post">
         <label for="tweet">Nuevo Tweet:</label><br>
@@ -41,7 +47,7 @@
             <?php endforeach; ?>
         </ul>
     <?php else: ?>
-        <p>No hay tweets anteriores.</p>
+        <p> No hay tweets todavía. </p>
     <?php endif; ?>
 </body>
 </html>
