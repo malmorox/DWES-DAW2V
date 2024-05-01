@@ -1,6 +1,6 @@
 <?php
 
-    require_once 'funcionalidad.php';
+    require_once 'config/funcionalidad.php';
     session_start();
 
     $usuario = obtenerInformacionDelUsuario($_SESSION['usuario']);

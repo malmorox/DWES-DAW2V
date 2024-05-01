@@ -1,6 +1,6 @@
 <?php
 
-    require_once 'funcionalidad.php';
+    require_once 'config/funcionalidad.php';
 
     $error = false;
 
