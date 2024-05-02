@@ -1,6 +1,6 @@
 <?php
 
-    require_once 'config/funcionalidad.php';
+    require_once 'config/auth.php';
 
     $errores = [];
 
@@ -34,7 +34,10 @@
             $registro_exitoso = registrarUsuario($usuario, $contrasena, $email);
     
             if ($registro_exitoso) {
-                header("Location: privada.php");
+                session_start();
+                $_SESSION['usuario'] = $usuario;
+                
+                header("Location: index.php");
                 exit();
             } else {
                 $errores['registro'] = "Hubo un error al registrar el usuario. Por favor, inténtalo de nuevo.";

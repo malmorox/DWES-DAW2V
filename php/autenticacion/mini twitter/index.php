@@ -1,18 +1,27 @@
 <?php
 
-    require_once 'config/funcionalidad.php';
+    require_once 'config/usuario.php';
+    require_once 'config/tweets.php';
+
     session_start();
+
+    if (!isset($_SESSION['usuario'])) {
+        header("Location: index.php");
+        exit();
+    }
 
     $usuario = obtenerInformacionDelUsuario($_SESSION['usuario']);
     $todos_tweets = mostrarTweets();
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["tweet"])) {
-        $tweet = $_POST["tweet"];
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["postear"])) {
+        $tweet = isset($_POST["tweet"]) ? trim($_POST["tweet"]) : null;
+
+        if (!empty($tweet)) {
+            publicarTweet($tweet, $usuario['id']);
         
-        publicarTweet($tweet);
-        
-        header("Location: index.php");
-        exit();
+            header("Location: index.php");
+            exit();
+        }
     }
 
 ?>
@@ -29,21 +38,22 @@
         <h1> Inicio </h1>
         <a href="perfil.php">
             <div>
-                <span id=""> <?= "@" . $usuario['usuario']; ?></span>
-                <div class="">
-                    <img src="<?= $usuario['foto_perfil']; ?>" alt="">
+                <span id="nombre-usuario-header"> <?= "@" . $usuario['usuario']; ?></span>
+                <div class="foto-usuario-header">
+                    <img src="<?= $usuario['foto_perfil']; ?>" alt="Foto de perfil de <?= "@" . $usuario['usuario']; ?>">
                 </div>
             </div>
         </a>
     </header> 
     <form action="index.php" method="post">
-        <label for="tweet">Nuevo Tweet:</label><br>
+        <label for="tweet"> Nuevo tweet: </label><br>
         <textarea name="tweet" maxlength="200" rows="4" cols="50"></textarea><br>
+
         <input type="submit" name="postear" value="POSTEAR">
     </form>
     
     <hr>
-    <h2>Tweets anteriores:</h2>
+    <h2> Tweets anteriores: </h2>
     <?php if (!empty($todos_tweets)): ?>
         <ul>
             <?php foreach ($todos_tweets as $tweet): ?>

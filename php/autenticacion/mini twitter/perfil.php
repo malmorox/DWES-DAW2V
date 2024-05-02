@@ -1,6 +1,7 @@
 <?php
 
-    require_once 'config/funcionalidad.php';
+    require_once 'config/usuario.php';
+    require_once 'config/tweets.php';
 
     $errores = [];
 

@@ -4,6 +4,11 @@
 
     $errores = [];
 
+    if (!isset($_GET['token']) || !validarTokenReseteo($_GET['token'])) {
+        header("Location: login.php");
+        exit();
+    }
+
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $nueva_contrasena = isset($_POST['nueva_contrasena']) ? trim($_POST['nueva_contrasena']) : null;
         $confirmar_nueva_contrasena = isset($_POST['confirmar_nueva_contrasena']) ? trim($_POST['confirmar_nueva_contrasena']) : null;
@@ -40,7 +45,7 @@
         <?php endif; ?> <br> 
 
         <label for="confirmar_nueva_contrasena"> Confirma la contraseña: </label> <br>
-        <input type="password" name="confirmar_nueva_contrasena"><br>
+        <input type="password" name="confirmar_nueva_contrasena"> <br>
         <?php if (isset($errores['confirmar_nueva_contrasena'])): ?>
             <span class="error"> <?= $errores['confirmar_nueva_contrasena']; ?> </span>
         <?php endif; ?> <br> 
