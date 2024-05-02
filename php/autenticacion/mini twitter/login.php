@@ -19,7 +19,7 @@
                 session_start();
                 $_SESSION['usuario'] = $usuario;
 
-                header("Location: privada.php");
+                header("Location: index.php");
                 exit();
             }
         } else {
