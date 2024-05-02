@@ -1,6 +1,6 @@
 <?php
 
-    require_once 'config/funcionalidad.php';
+    require_once 'config/correo.php';
 
     $error = false;
 
