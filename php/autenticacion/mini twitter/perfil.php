@@ -2,6 +2,7 @@
 
     require_once 'config/usuario.php';
     require_once 'config/tweets.php';
+    require_once 'Tweet.php';
 
     $errores = [];
 
@@ -60,6 +61,20 @@
 
         <input type="submit" name="guardar" value="GUARDAR CAMBIOS">
     </form>
+
+    <hr>
+    <h2> Tus tweets: </h2>
+    <?php if (!empty($tweets_usuario)): ?>
+        <div>
+            <?php foreach ($tweets_usuario as $info_tweet): ?>
+                <?php $tweet = new Tweet($info_tweet['nombre_usuario'], $info_tweet['foto_usuario'], $info_tweet['tweet'], $info_tweet['fechahora']); ?>
+                <?= $tweet; ?>
+            <?php endforeach; ?>
+        </div>
+    <?php else: ?>
+        <p> No has publicado ningún tweet todavía. </p>
+    <?php endif; ?>
+
     <a href="logout.php"> Cerrar sesión </a>
     <script src="js/script.js"></script>
 </body>

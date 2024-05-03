@@ -14,16 +14,24 @@
 
     function mostrarTweets($id_usuario = null) {
         $db = conexion();
+        $consultaTweets = "
+            SELECT 
+                u.usuario AS nombre_usuario,
+                u.foto_perfil AS foto_usuario,
+                t.mensaje AS tweet,
+                t.fecha_hora AS fecha_hora
+            FROM tweets t 
+            INNER JOIN usuarios u ON t.id_usuario = u.id";
         if ($id_usuario !== null) {
-            $consulta = $db->prepare("SELECT * FROM tweets WHERE id_usuario = :id_usuario ORDER BY fecha_hora DESC");
+            $consulta = $db->prepare($consultaTweets . " WHERE t.id_usuario = :id_usuario ORDER BY t.fecha_hora DESC");
             $consulta->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
         } else {
-            $consulta = $db->prepare("SELECT * FROM tweets ORDER BY fecha_hora DESC");
+            $consulta = $db->prepare($consultaTweets . " ORDER BY t.fecha_hora DESC");
         }
         $consulta->execute();
-        $mensajes = $consulta->fetchAll(PDO::FETCH_ASSOC);
+        $tweets = $consulta->fetchAll(PDO::FETCH_ASSOC);
 
-        return $mensajes;
+        return $tweets;
     }
 
 ?>

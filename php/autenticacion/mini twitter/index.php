@@ -2,6 +2,7 @@
 
     require_once 'config/usuario.php';
     require_once 'config/tweets.php';
+    require_once 'Tweet.php';
 
     session_start();
 
@@ -53,13 +54,14 @@
     </form>
     
     <hr>
-    <h2> Tweets anteriores: </h2>
+    <h2> Todos los tweets: </h2>
     <?php if (!empty($todos_tweets)): ?>
-        <ul>
-            <?php foreach ($todos_tweets as $tweet): ?>
-                <li><?= $tweet['mensaje']; ?></li>
+        <div>
+            <?php foreach ($todos_tweets as $info_tweet): ?>
+                <?php $tweet = new Tweet($info_tweet['nombre_usuario'], $info_tweet['foto_usuario'], $info_tweet['tweet'], $info_tweet['fechahora']); ?>
+                <?= $tweet; ?>
             <?php endforeach; ?>
-        </ul>
+        </div>
     <?php else: ?>
         <p> No hay tweets todavía. </p>
     <?php endif; ?>
