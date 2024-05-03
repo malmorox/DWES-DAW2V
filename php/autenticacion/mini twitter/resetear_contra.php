@@ -35,7 +35,7 @@
 </head>
 <body>
     <h2> Resetea tu contraseña </h2>
-    <form action="reset_password_process.php" method="post">
+    <form action="resetear_contra_proceso.php" method="post">
         <input type="hidden" name="token" value="<?= $_GET['token']; ?>">
 
         <label for="nueva_contrasena"> Nueva contraseña: </label> <br>
