@@ -6,7 +6,7 @@
         $db = conexion();
         $consulta = $db->prepare("INSERT INTO tweets (id_usuario, mensaje, fecha_hora) VALUES (:id_usuario, :mensaje, NOW())");
         $consulta->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
-        $consulta->bindParam(':mensaje', $mensaje, PDO::PARAM_STR);
+        $consulta->bindParam(':mensaje', $tweet, PDO::PARAM_STR);
         $resultado = $consulta->execute();
 
         return $resultado;

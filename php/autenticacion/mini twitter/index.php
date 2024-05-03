@@ -57,7 +57,7 @@
     <?php if (!empty($todos_tweets)): ?>
         <ul>
             <?php foreach ($todos_tweets as $tweet): ?>
-                <li><?php echo $tweet; ?></li>
+                <li><?= $tweet['mensaje']; ?></li>
             <?php endforeach; ?>
         </ul>
     <?php else: ?>

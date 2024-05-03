@@ -18,10 +18,8 @@ CREATE TABLE tweets (
 );
 
 CREATE TABLE tokens (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    token VARCHAR(255) PRIMARY KEY,
     id_usuario INT NOT NULL,
-    token VARCHAR(255) NOT NULL,
-    fecha_hora DATETIME NOT NULL,
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id)
 );
 

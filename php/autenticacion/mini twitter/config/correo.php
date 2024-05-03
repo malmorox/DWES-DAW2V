@@ -1,14 +1,13 @@
 <?php
 
     require_once 'conexion.php';
+    require_once 'tokens.php';
 
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\SMTP;
     use PHPMailer\PHPMailer\Exception;
 
-    require '../vendor/autoload.php';
-
-    define("NUMERO_CARACTERES_TOKEN", 16);
+    require 'vendor/autoload.php';
 
     function validarCorreo($email) {
         $db = conexion();
@@ -28,18 +27,18 @@
         $mail = new PHPMailer(true);
 
         try {
-            $mail->SMTPDebug = SMTP::DEBUG_SERVER;
-            $mail->isSMTP();
-            $mail->Host = 'smtp.gmail.com';
-            $mail->SMTPAuth = false;
-            $mail->Username = 'malmoroxcabrera@educa.madrid.org';
-            $mail->Password = 'Almoroxii1133';
-            $mail->SMTPSecure = 'tls';
-            $mail->Port = 587;
-
             $token = bin2hex(openssl_random_pseudo_bytes(NUMERO_CARACTERES_TOKEN));
 
             if (insertarTokenBD($token, $email)) {
+                //$mail->SMTPDebug = SMTP::DEBUG_SERVER;
+                $mail->isSMTP();
+                $mail->Host = 'smtp.educa.madrid.org';
+                $mail->SMTPAuth = false;
+                $mail->Username = 'malmoroxcabrera@educa.madrid.org';
+                $mail->Password = 'Almoroxii1133';
+                $mail->SMTPSecure = 'tls';
+                $mail->Port = 587;
+
                 $mail->setFrom('malmoroxcabrera@educa.madrid.org', 'Mini Twitter');
                 $mail->addAddress($email, 'Marcos Almorox');
                 $mail->Subject = 'Recuperación de contraseña';

@@ -6,7 +6,7 @@
 
     function insertarTokenBD($token, $email) {
         $db = conexion();
-        $consultaIdUsuario = $db->prepare("SELECT id_usuario FROM usuarios WHERE email = :email");
+        $consultaIdUsuario = $db->prepare("SELECT id FROM usuarios WHERE email = :email");
         $consultaIdUsuario->bindParam(':email', $email, PDO::PARAM_STR);
         $consultaIdUsuario->execute();
         $id_usuario = $consultaIdUsuario->fetchColumn();
@@ -15,6 +15,12 @@
         $consultaToken->bindParam(':token', $token, PDO::PARAM_STR);
         $consultaToken->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
         $resultado = $consultaToken->execute();
+
+        if ($resultado) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     function validarTokenReseteo($token) {
