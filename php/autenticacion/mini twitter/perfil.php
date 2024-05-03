@@ -19,6 +19,7 @@
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $nuevo_nombre_usuario = isset($_POST['nuevo_nombre_usuario']) ? trim($_POST['nuevo_nombre_usuario']) : null;
+        $nueva_biografia_usuario = isset($_POST['nueva_biografia_usuario']) ? trim($_POST['nueva_biografia_usuario']) : null;
         
         if (!empty($nuevo_nombre_usuario)) {
             if (($nuevo_nombre_usuario !== $usuario['usuario']) && (strtolower($nuevo_nombre_usuario) !== strtolower($usuario['usuario']))) {
@@ -52,12 +53,15 @@
     <?php endif; ?>
     <form action="perfil.php" method="post">
         <label for="nuevo_nombre_usuario"> Nuevo nombre de usuario: </label> <br>
-        <input type="text" name="nuevo_nombre_usuario" value> <br>
+        <input type="text" name="nuevo_nombre_usuario" value="<?= $usuario['usuario'] ?>"> <br>
         <?php if (isset($_POST['guardar']) == "POST" && empty($nuevo_nombre_usuario)): ?>
             <span class="aviso"> Si no introduces nada se mantendrá tu nombre actual </span> <br>
         <?php elseif (isset($errores['nuevo_nombre'])): ?>
             <span class="error"> <?= $errores['nuevo_nombre'] ?> </span> <br>
         <?php endif; ?> <br>
+
+        <label for="nueva_biografia_usuario"> Nueva biografía: </label> <br>
+        <textarea name="nueva_biografia_usuario"> <?= $usuario['biografia'] ?> </textarea> <br>
 
         <input type="submit" name="guardar" value="GUARDAR CAMBIOS">
     </form>
