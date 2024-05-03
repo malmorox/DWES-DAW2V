@@ -58,7 +58,7 @@
     <?php if (!empty($todos_tweets)): ?>
         <div>
             <?php foreach ($todos_tweets as $info_tweet): ?>
-                <?php $tweet = new Tweet($info_tweet['nombre_usuario'], $info_tweet['foto_usuario'], $info_tweet['tweet'], $info_tweet['fechahora']); ?>
+                <?php $tweet = new Tweet($info_tweet['nombre_usuario'], $info_tweet['foto_usuario'], $info_tweet['tweet'], $info_tweet['fecha_hora']); ?>
                 <?= $tweet; ?>
             <?php endforeach; ?>
         </div>

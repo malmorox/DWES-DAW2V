@@ -10,7 +10,12 @@
             $this->nombreUsuario = $nombreUsuario;
             $this->fotoPerfilUsuario = $fotoPerfilUsuario;
             $this->contenido = $contenido;
-            $this->fechaHora = date('Y-m-d H:i:s');
+            $this->fechaHora = $this->formatearFechaHora($fechaHora);
+        }
+
+        private function formatearFechaHora($fechaHora) {
+            $fechaTweetFormateada = new DateTime($fechaHora);
+            return $fechaTweetFormateada->format('H:i - d/m/Y');
         }
     
         public function __toString() {
@@ -20,7 +25,7 @@
                         <img src="' . $this->fotoPerfilUsuario . '" alt="Foto de perfil de @' . $this->nombreUsuario . '">
                     </div>
                     <div class="col2">
-                        <span>' . $this->nombreUsuario . '</span>
+                        <span> @' . $this->nombreUsuario . '</span>
                         <p>' . $this->contenido . '</p>
                         <span>' . $this->fechaHora . '</span>
                     </div>
