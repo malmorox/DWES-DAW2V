@@ -29,7 +29,7 @@
         try {
             $token = bin2hex(openssl_random_pseudo_bytes(NUMERO_CARACTERES_TOKEN));
 
-            if (insertarTokenBD($token, $email)) {
+            if (insertarTokenRecuperacionBD($token, $email)) {
                 //$mail->SMTPDebug = SMTP::DEBUG_SERVER;
                 $mail->isSMTP();
                 $mail->Host = 'smtp.educa.madrid.org';

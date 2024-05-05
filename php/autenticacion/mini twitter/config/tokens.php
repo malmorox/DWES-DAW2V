@@ -4,7 +4,7 @@
 
     define("NUMERO_CARACTERES_TOKEN", 16);
 
-    function insertarTokenBD($token, $email) {
+    function insertarTokenRecuperacionBD($token, $email) {
         $db = conexion();
         $consultaIdUsuario = $db->prepare("SELECT id FROM usuarios WHERE email = :email");
         $consultaIdUsuario->bindParam(':email', $email, PDO::PARAM_STR);
@@ -51,6 +51,13 @@
         $resultado = $consultaResetear->execute();
 
         return $resultado;
+    }
+
+    function eliminarTokenBD($token) {
+        $db = conexion();
+        $consulta = $db->prepare("DELETE FROM tokens WHERE token = :token");
+        $consulta->bindParam(':token', $token, PDO::PARAM_STR);
+        $consulta->execute();
     }
 
 ?>

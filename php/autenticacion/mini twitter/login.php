@@ -4,6 +4,13 @@
 
     $errores = [];
 
+    session_start();
+
+    if (isset($_SESSION['usuario'])) {
+        header("Location: index.php");
+        exit();
+    }
+
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $usuario = isset($_POST['usuario']) ? trim($_POST['usuario']) : null;
         $contrasena = isset($_POST['contrasena']) ? trim($_POST['contrasena']) : null;

@@ -28,6 +28,7 @@
         if (empty($errores)) {
             $reseteo_exitoso = resetearContrasena($token, $nueva_contrasena);
             if ($reseteo_exitoso) {
+                eliminarTokenBD($token);
                 $exito = "¡Tu contraseña ha sido modificada exitosamente!";
                 echo "<script>
                         setTimeout(function() {
@@ -57,9 +58,7 @@
     <?php if (isset($errores['general'])) : ?>
         <span class="error"> <?= $errores['general'] ?> </span>
     <?php endif; ?>
-    <form action="resetear_contra.php" method="post">
-        <input type="hidden" name="token" value="<?= $_GET['token']; ?>">
-
+    <form action="<?= $_SERVER["REQUEST_URI"]; ?>" method="post">
         <label for="nueva_contrasena"> Nueva contraseña: </label> <br>
         <input type="password" name="nueva_contrasena"> <br>
         <?php if (isset($errores['nueva_contrasena'])): ?>
