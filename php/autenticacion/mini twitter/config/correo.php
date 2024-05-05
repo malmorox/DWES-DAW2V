@@ -42,7 +42,7 @@
                 $mail->setFrom('malmoroxcabrera@educa.madrid.org', 'Mini Twitter');
                 $mail->addAddress($email, 'Marcos Almorox');
                 $mail->Subject = 'Recuperación de contraseña';
-                $mail->Body = "Haz click en el siguiente enlace para recuperar tu contraseña: http://localhost/twitter/resetear_contra.php?token=$token";
+                $mail->Body = "Haz click en el siguiente enlace para recuperar tu contraseña: http://localhost/twitter/resetear_contra_proceso.php?token=$token";
 
                 $mail->send();
                 return true;

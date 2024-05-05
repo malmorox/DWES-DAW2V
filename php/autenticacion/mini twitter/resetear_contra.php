@@ -7,6 +7,8 @@
     if (!isset($_GET['token']) || !validarTokenReseteo($_GET['token'])) {
         header("Location: login.php");
         exit();
+    } else {
+        $token = htmlspecialchars($_GET['token']);
     }
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -19,8 +21,22 @@
 
         if (empty($confirmar_nueva_contrasena)) {
             $errores['confirmar_nueva_contrasena'] = "Debes confirmar la contraseña";
-        } elseif (!empty($contrasena) && $contrasena !== $confirmar_contrasena) {
+        } elseif (!empty($nueva_contrasena) && $nueva_contrasena !== $confirmar_nueva_contrasena) {
             $errores['confirmar_nueva_contrasena'] = "Las contraseñas deben coincidir";
+        }
+
+        if (empty($errores)) {
+            $reseteo_exitoso = resetearContrasena($token, $nueva_contrasena);
+            if ($reseteo_exitoso) {
+                $exito = "¡Tu contraseña ha sido modificada exitosamente!";
+                echo "<script>
+                        setTimeout(function() {
+                            window.location.href = 'login.php';
+                        }, 2500);
+                    </script>";
+            } else {
+                $errores['general'] = "Ha ocurrido un error al resetear la contraseña";
+            }
         }
     }
 
@@ -35,6 +51,12 @@
 </head>
 <body>
     <h2> Resetea tu contraseña </h2>
+    <?php if (isset($exito)) : ?>
+        <span class="exito"> <?= $exito ?> </span>
+    <?php endif; ?>
+    <?php if (isset($errores['general'])) : ?>
+        <span class="error"> <?= $errores['general'] ?> </span>
+    <?php endif; ?>
     <form action="resetear_contra.php" method="post">
         <input type="hidden" name="token" value="<?= $_GET['token']; ?>">
 
