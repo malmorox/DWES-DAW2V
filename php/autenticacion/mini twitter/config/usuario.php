@@ -41,13 +41,7 @@
     }
     
     function guardarFotoDePerfil($foto_perfil, $id_usuario) {
-        $db = conexion();
-        $consulta = $db->prepare("UPDATE usuarios SET foto_perfil = :foto_perfil WHERE id = :id_usuario");
-        $consulta->bindParam(':foto_perfil', $foto_perfil, PDO::PARAM_STR);
-        $consulta->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
-        $resultado = $consulta->execute();
-
-        return $resultado;
+        $nombreArchivo = basename($foto_perfil["name"]);
     }
 
 ?>

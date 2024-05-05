@@ -23,5 +23,5 @@ CREATE TABLE tokens (
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id)
 );
 
-INSERT INTO usuarios (usuario, contrasena, email) VALUES
-('malmorox', '$2y$10$0N6oTYCuDQvOhJbqIv0Q1uCLJFBoqTODJXIqaGb4KPv9bHpQEQB1m', 'malmoroxcabrera@educa.madrid.org');
+INSERT INTO usuarios (usuario, contrasena, email, foto_perfil) VALUES
+('malmorox', '$2y$10$0N6oTYCuDQvOhJbqIv0Q1uCLJFBoqTODJXIqaGb4KPv9bHpQEQB1m', 'malmoroxcabrera@educa.madrid.org', 'media/fotos_perfil/foto_perfil2.jpeg');

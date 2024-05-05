@@ -52,6 +52,8 @@
         <span class="exito"> ¡El nombre de usuario se ha actualizado correctamente! </span> <br> <br>
     <?php endif; ?>
     <form action="perfil.php" method="post">
+        <input type="file" name="nueva_foto_perfil"> <br>
+
         <label for="nuevo_nombre_usuario"> Nuevo nombre de usuario: </label> <br>
         <input type="text" name="nuevo_nombre_usuario" value="<?= $usuario['usuario'] ?>"> <br>
         <?php if (isset($_POST['guardar']) == "POST" && empty($nuevo_nombre_usuario)): ?>

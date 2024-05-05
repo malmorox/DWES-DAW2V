@@ -22,11 +22,11 @@
 }
 
 .info-usuario-header {
-    padding: 12px;
+    padding: 10px;
     border-radius: 5px;
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 7px;
     background-color: #1f5a86;
 }
 
@@ -37,6 +37,25 @@
 .header-inicio a {
     text-decoration: none;
     color: white;
+}
+
+.foto-usuario-header {
+    display: flex;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+}
+
+.foto-usuario-header img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.nombre-usuario-header {
+    font-size: 18px;
+    font-weight: medium;
 }
 
 .todos-tweets {

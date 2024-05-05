@@ -42,7 +42,7 @@
                 <div class="foto-usuario-header">
                     <img src="<?= $usuario['foto_perfil']; ?>" alt="Foto de perfil de <?= "@" . $usuario['usuario']; ?>">
                 </div>
-                <span id="nombre-usuario-header"> <?= "@" . $usuario['usuario']; ?></span>
+                <span class="nombre-usuario-header"> <?= "@" . $usuario['usuario']; ?></span>
             </div>
         </a>
     </header> 
