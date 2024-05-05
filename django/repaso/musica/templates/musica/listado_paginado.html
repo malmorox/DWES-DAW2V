@@ -9,8 +9,8 @@
     <ul>
         {% for cancion in object_list %}
             <li>{{ cancion.nombre }} - {{ cancion.tipo_musica }}</li>
-            <audio controls autoplay muted>
-                <source src="{{ cancion.fichero.url }}" type="audio/mpeg">
+            <audio controls>
+                <source src="{{ cancion.fichero.url }}" type="audio/mpeg" />
                 Tu navegador no soporta la reproducción de audio.
             </audio>
         {% endfor %}

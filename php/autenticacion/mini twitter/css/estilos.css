@@ -1,3 +1,7 @@
+* {
+    font-family: Arial, sans-serif;
+}
+
 .exito { 
     color: #43CA57; 
 }
@@ -9,3 +13,34 @@
 .aviso { 
     color: #FFB900; 
 }
+
+.header-inicio {
+    display: flex; 
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.info-usuario-header {
+    padding: 12px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background-color: #1f5a86;
+}
+
+.info-usuario-header:hover {
+    background-color: #113e62;
+}
+
+.header-inicio a {
+    text-decoration: none;
+    color: white;
+}
+
+.todos-tweets {
+    display: flex;
+    flex-direction: column;
+}
+

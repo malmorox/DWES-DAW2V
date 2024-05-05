@@ -10,14 +10,14 @@ def validar_mp3(value):
 class Musica(models.Model):
     nombre = models.CharField(max_length=50,unique=True)
     TIPOS_MUSICA = [
-        ('rock', 'ROCK'),
-        ('pop', 'POP'),
-        ('jazz', 'JAZZ'),
-        ('electronica', 'ELECTRÓNICA'),
-        ('clasica', 'CLÁSICA'),
+        ('Rock', 'ROCK'),
+        ('Pop', 'POP'),
+        ('Jazz', 'JAZZ'),
+        ('Electrónica', 'ELECTRÓNICA'),
+        ('Clasica', 'CLÁSICA'),
     ]
     tipo_musica = models.CharField(max_length=20, choices=TIPOS_MUSICA)
-    fichero = models.FileField(upload_to='musica/media/archivos_mp3', validators=[validar_mp3])
+    fichero = models.FileField(upload_to='archivos_mp3', validators=[validar_mp3])
 
     def __str__(self):
         return self.nombre

@@ -35,10 +35,10 @@
     <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
-    <header> 
+    <header class="header-inicio"> 
         <h1> Inicio </h1>
         <a href="perfil.php">
-            <div>
+            <div class="info-usuario-header">
                 <div class="foto-usuario-header">
                     <img src="<?= $usuario['foto_perfil']; ?>" alt="Foto de perfil de <?= "@" . $usuario['usuario']; ?>">
                 </div>
@@ -48,15 +48,15 @@
     </header> 
     <form action="index.php" method="post">
         <label for="tweet"> Nuevo tweet: </label><br>
-        <textarea name="tweet" maxlength="200" rows="4" cols="50"></textarea><br>
+        <textarea name="tweet" id="tweet" maxlength="200" rows="4" cols="50"></textarea><br>
 
-        <input type="submit" name="postear" value="POSTEAR">
+        <input type="submit" name="postear" id="boton-postear" value="POSTEAR">
     </form>
     
     <hr>
     <h2> Todos los tweets: </h2>
     <?php if (!empty($todos_tweets)): ?>
-        <div>
+        <div class="todos-tweets">
             <?php foreach ($todos_tweets as $info_tweet): ?>
                 <?php $tweet = new Tweet($info_tweet['nombre_usuario'], $info_tweet['foto_usuario'], $info_tweet['tweet'], $info_tweet['fecha_hora']); ?>
                 <?= $tweet; ?>
@@ -65,5 +65,6 @@
     <?php else: ?>
         <p> No hay tweets todavía. </p>
     <?php endif; ?>
+    <script src="js/script.js"></script>
 </body>
 </html>

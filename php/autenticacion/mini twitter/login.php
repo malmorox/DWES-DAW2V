@@ -7,18 +7,18 @@
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $usuario = isset($_POST['usuario']) ? trim($_POST['usuario']) : null;
         $contrasena = isset($_POST['contrasena']) ? trim($_POST['contrasena']) : null;
-
+    
         if (!empty($usuario) && !empty($contrasena)) {
             $login_exitoso = iniciarSesion($usuario, $contrasena); 
-
+        
             if (!$login_exitoso) {
                 $errores['credenciales'] = "Credenciales incorrectas.";
             }
-    
+        
             if (empty($errores)) {
                 session_start();
                 $_SESSION['usuario'] = $usuario;
-
+            
                 header("Location: index.php");
                 exit();
             }
@@ -40,8 +40,8 @@
 <body>
     <h1> Iniciar sesión </h1>
     <?php if (isset($errores['credenciales'])): ?>
-            <span class="error"> <?= $errores['credenciales']; ?> </span>
-        <?php endif; ?> <br>
+            <span class="error"> <?= $errores['credenciales']; ?> </span> <br>
+        <?php endif; ?>
     <form action="" method="post">
         <label for="usuario"> Nombre de usuario: </label> <br>
         <input type="text" name="usuario" value="<?= isset($usuario) ? $usuario : ''; ?>"> <br>
