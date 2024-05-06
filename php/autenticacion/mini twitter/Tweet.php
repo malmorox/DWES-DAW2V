@@ -1,10 +1,10 @@
 <?php
 
     class Tweet {
-        private $nombreUsuario;
-        private $fotoPerfilUsuario;
-        private $contenido;
-        private $fechaHora;
+        public $nombreUsuario;
+        public $fotoPerfilUsuario;
+        public $contenido;
+        public $fechaHora;
     
         public function __construct($nombreUsuario, $fotoPerfilUsuario, $contenido, $fechaHora) {
             $this->nombreUsuario = $nombreUsuario;

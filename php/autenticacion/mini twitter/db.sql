@@ -7,7 +7,7 @@ CREATE TABLE usuarios (
     contrasena VARCHAR(255) NOT NULL,
     email VARCHAR(100) NOT NULL,
     foto_perfil VARCHAR(255),
-    color_cabecera VARCHAR(7),
+    color_cabecera VARCHAR(7)
 );
 
 CREATE TABLE tweets (

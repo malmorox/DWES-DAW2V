@@ -77,24 +77,27 @@
             <span class="perfil-biografia-usuario"> <?= $usuario['biografia']; ?> </span> <br>
         </section>
         <section class="perfil-editar-usuario">
-            <button> Editar perfil </button>
+            <button id="boton-editar-perfil"> Editar perfil </button>
         </section>
     </div>
     <?php if (isset($error_mensaje)): ?>
         <span class="error"> <?= $error_mensaje ?> </span>
     <?php endif; ?>
-    <div class="popup-editar-perfil">
-        <form action="perfil.php" method="post" enctype="multipart/form-data">
-            <input type="file" name="nueva_foto_perfil"> <br>
+    <div class="popup-fondo">
+        <div class="popup-editar-perfil">
+            <form action="perfil.php" method="post" enctype="multipart/form-data">
+                <label for="nueva_foto_perfil"> Foto de perfil: </label> <br>
+                <input type="file" name="nueva_foto_perfil"> <br> <br>
 
-            <label for="nuevo_nombre_usuario"> Nombre de usuario: </label> <br>
-            <input type="text" name="nuevo_nombre_usuario" value="<?= $usuario['usuario'] ?>"> <br> <br>
+                <label for="nuevo_nombre_usuario"> Nombre de usuario: </label> <br>
+                <input type="text" name="nuevo_nombre_usuario" value="<?= $usuario['usuario'] ?>"> <br> <br>
 
-            <label for="nueva_biografia_usuario"> Nueva biografía: </label> <br>
-            <textarea name="nueva_biografia_usuario"> <?= $usuario['biografia'] ?> </textarea> <br> <br>
+                <label for="nueva_biografia_usuario"> Nueva biografía: </label> <br>
+                <textarea name="nueva_biografia_usuario"><?= $usuario['biografia'] ?></textarea> <br> <br>
 
-            <input type="submit" name="guardar" value="GUARDAR CAMBIOS">
-        </form>
+                <input type="submit" name="guardar" value="GUARDAR CAMBIOS">
+            </form>
+        </div>
     </div>
     <hr>
     <h2> Tus tweets: </h2>
