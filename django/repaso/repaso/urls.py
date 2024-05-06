@@ -9,7 +9,8 @@ urlpatterns = [
     path('fp/', include('fp.urls')),
     path('frutas', include('frutas.urls')),
     path('fallout/', include('fallout.urls')),
-    path('', include('musica.urls'))
+    path('musica/', include('musica.urls')),
+    path('', include('memes.urls'))
 ]
 
 if(settings.DEBUG):
