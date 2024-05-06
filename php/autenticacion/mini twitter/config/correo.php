@@ -39,6 +39,7 @@
                 $mail->SMTPSecure = 'tls';
                 $mail->Port = 587;
 
+                $mail->CharSet = 'UTF-8';
                 $mail->setFrom('malmoroxcabrera@educa.madrid.org', 'Mini Twitter');
                 $mail->addAddress($email, 'Marcos Almorox');
                 $mail->Subject = 'Recuperación de contraseña';
