@@ -33,6 +33,15 @@
                 $errores['nuevo_nombre'] = "El nuevo nombre no debe ser igual al actual";
             }
         }
+
+        if (isset($_FILES['nueva_foto_perfil']) && $_FILES['nueva_foto_perfil']['error'] === UPLOAD_ERR_OK) {
+            $cambio_exitoso = editarInfoUsuario($ruta_nueva_foto_perfil, 'foto_perfil', $usuario['id']);
+            if ($cambio_exitoso) {
+                $usuario['foto_perfil'] = $ruta_nueva_foto_perfil;
+            } else {
+                $errores['nueva_foto_perfil'] = "Error al actualizar la foto de perfil.";
+            }
+        }
     }
 
 ?> 
@@ -51,7 +60,7 @@
     <?php if ($cambio_exitoso): ?>
         <span class="exito"> ¡El nombre de usuario se ha actualizado correctamente! </span> <br> <br>
     <?php endif; ?>
-    <form action="perfil.php" method="post">
+    <form action="perfil.php" method="post" enctype="multipart/form-data">
         <input type="file" name="nueva_foto_perfil"> <br>
 
         <label for="nuevo_nombre_usuario"> Nuevo nombre de usuario: </label> <br>
