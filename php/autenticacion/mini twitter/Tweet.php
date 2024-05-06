@@ -22,7 +22,9 @@
             return 
                 '<div class="tweet">
                     <div class="col1">
-                        <img src="' . $this->fotoPerfilUsuario . '" alt="Foto de perfil de @' . $this->nombreUsuario . '">
+                        <div class="tweet-usuario-foto">
+                            <img src="' . $this->fotoPerfilUsuario . '" alt="Foto de perfil de @' . $this->nombreUsuario . '">
+                        </div>
                     </div>
                     <div class="col2">
                         <span> @' . $this->nombreUsuario . '</span>

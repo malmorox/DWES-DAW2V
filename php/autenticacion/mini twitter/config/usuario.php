@@ -58,12 +58,12 @@
 
         $contador = 1;
         while (file_exists($archivo)) {
-            $nombre_sin_extension = pathinfo($nombreArchivo, PATHINFO_FILENAME);
+            $nombre_sin_extension = pathinfo($nombre_archivo, PATHINFO_FILENAME);
             $archivo = $directorio . $nombre_sin_extension . '(' . $contador . ').' . $formato_imagen;
             $contador++;
         }
 
-        $foto_real = getimagesize($_FILES["imagen_perfil"]["tmp_name"]);
+        $foto_real = getimagesize($foto_perfil["tmp_name"]);
         if($foto_real !== false) {
             $subir = 1;
         } else {
