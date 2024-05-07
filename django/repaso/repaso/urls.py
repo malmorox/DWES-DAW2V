@@ -10,7 +10,8 @@ urlpatterns = [
     path('frutas', include('frutas.urls')),
     path('fallout/', include('fallout.urls')),
     path('musica/', include('musica.urls')),
-    path('', include('memes.urls'))
+    path('', include('memes.urls')),
+    path('coches/', include('coches.urls'))
 ]
 
 if(settings.DEBUG):

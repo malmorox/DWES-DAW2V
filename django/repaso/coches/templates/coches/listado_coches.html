@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> Listado de coches </title>
+</head>
+<body>
+    <h1> Listado de coches </h1>
+    {% if coches %}
+        <ul>
+            {% for coche in coches %}
+                <li>
+                    <h2> {{ coche.fabricante }} {{ coche.modelo }} </h2> 
+                    <img src="{{ coche.imagen.url }}" alt="Imagen de {{ coche }}" height="100">
+                    <span> Precio: {{ coche.precio }} euros </span>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    
+</body>
+</html>

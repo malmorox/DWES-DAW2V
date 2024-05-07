@@ -36,6 +36,8 @@ INSTALLED_APPS = [
     'frutas',
     'fallout',
     'musica',
+    'memes',
+    'coches',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
