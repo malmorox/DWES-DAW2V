@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Listado de memes </title>
+</head>
+<body>
+    <h1> Listado de memes </h1>
+    {% if memes %}
+        {% for meme in memes %}
+            <div>
+                <img src="{{ meme.imagen.url }}" alt="{{ meme.descripcion }}">
+                <p>{{ meme.descripcion }}</p>
+                <a href="{% url 'detalle_meme' meme.id %}"> Ver detalle </a>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No hay memes disponibles.</p>
+    {% endif %}
+</body>
+</html>
