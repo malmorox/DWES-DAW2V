@@ -1,6 +1,7 @@
 <?php
 
     require_once 'GestorDatos.php';
+    require_once 'HTMLRendererTrait.php';
 
     class GestorRelacional extends GestorDatos {
         public $sistemas_operativos_soportados;
@@ -16,10 +17,12 @@
 
         public function obtenerDetalle() {
             $soporte_transacciones_cadena = $this->soporte_transacciones ? "Sí" : "No";
-            return "Sistemas operativos soportados: {$this->sistemas_operativos_soportados}\n 
-                Versión: {$this->version}\n 
+            return "Sistemas operativos soportados: {$this->sistemas_operativos_soportados} <br> 
+                Versión: {$this->version} <br>
                 Soporte de transacciones: {$soporte_transacciones_cadena}";
         }
+
+        use HTMLRenderer;
     }
 
 ?>

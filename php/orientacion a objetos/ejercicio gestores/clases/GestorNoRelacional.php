@@ -1,6 +1,7 @@
 <?php
 
     require_once 'GestorDatos.php';
+    require_once 'HTMLRendererTrait.php';
 
     class GestorNoRelacional extends GestorDatos {
         public $tipo_modelo_datos;
@@ -13,6 +14,8 @@
         public function obtenerDetalle() {
             return "Tipo de modelo de datos: {$this->tipo_modelo_datos}";
         }
+
+        use HTMLRenderer;
     }
 
 ?>
