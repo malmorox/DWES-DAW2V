@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import FormMixin
 from .models import Meme, Comentario
-from .forms import ComentarioForm
 
 class MemeListView(ListView):
     model = Meme
@@ -13,7 +12,6 @@ class DetalleMemeView(FormMixin, DetailView):
     model = Meme
     template_name = 'memes/meme_detail.html'
     context_object_name = 'meme'
-    form_class = ComentarioForm
 
     def get_success_url(self):
         return self.request.path
