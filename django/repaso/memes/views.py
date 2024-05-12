@@ -39,7 +39,6 @@ class MemeCommentView(FormMixin, DetailView):
     model = Meme
     template_name = 'memes/meme_detail.html'
     context_object_name = 'meme'
-    form_class = ComentarioForm
 
     def get_success_url(self):
         return self.request.path

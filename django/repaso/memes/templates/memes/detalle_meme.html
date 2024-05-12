@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Listado de memes </title>
+</head>
+<body>
+    <h1>{{ meme.descripcion }}</h1>
+    <img src="{{ meme.imagen.url }}" alt="">
+
+    <h3> Añadir comentario: </h3>
+    <form method="post" action="{% url 'add_comment' pk=meme.pk %}">
+        {% csrf_token %}
+        {{ comment_form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+
+    <h2>Comentarios:</h2>
+    <div>
+        {% for comment in comments %}
+            <div>
+                {{ comment.author }}
+                {{ comment.text }}
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
