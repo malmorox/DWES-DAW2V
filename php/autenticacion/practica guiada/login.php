@@ -1,10 +1,13 @@
 <?php
     require_once 'init.php';
+    require_once 'funcionalidad.php';
 
     if (isset($_SESSION['usuario'])) {
         header("Location: index.php");
         exit();
     }
+
+    define('TIEMPO_EXPIRACION', 7 * 24 * 60 * 60);
 
     $errores = [];
     $nombre = "";
@@ -13,6 +16,7 @@
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $nombre = isset($_POST['nombre']) ? trim($_POST['nombre']) : null;
         $contrasena = isset($_POST['contrasena']) ? trim($_POST['contrasena']) : null;
+        $recordar = isset($_POST['recordar']) ? true : false;
 
         if (empty($nombre)) {
             $errores['nombre'] = "El nombre de usuario es obligatorio";
@@ -30,6 +34,15 @@
             if (password_verify($contrasena, $usuario[0]['pass'])) {
                 $_SESSION['usuario'] = $usuario[0]['nombre'];
                 //$_SESSION['usuario'] = $nombre;
+
+                if ($recordar) {
+                    $token = generarToken();
+                    $expiracion = time() + TIEMPO_EXPIRACION;
+        
+                    guardarToken($token, date('Y-m-d H:i:s', $expiracion),  $usuario[0]['id']);
+        
+                    setcookie('token', $token, $expira, '/');
+                }
 
                 header("Location: privada.php");
                 exit();
