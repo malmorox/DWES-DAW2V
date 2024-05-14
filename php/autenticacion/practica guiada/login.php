@@ -16,21 +16,20 @@
 
         if (empty($nombre)) {
             $errores['nombre'] = "El nombre de usuario es obligatorio";
-        }
+        }                                    
 
         if (empty($contrasena)) {
             $errores['contrasena'] = "La contraseña es obligatoria";
         }
 
         if (empty($errores)) {
-            $aVerificar = $db->ejecuta("SELECT * FROM usuarios WHERE nombre = :id", $nombre);
-            
+            $usuario = $db->ejecuta("SELECT * FROM usuarios WHERE nombre = :nombre", $nombre);
             $usuario = $db->obtenDatos();
-            var_dump($usuario);
+            //print_r($usuario);
                 
-            if (password_verify($contrasena, $usuario['pass'])) {
-                //$_SESSION['usuario'] = $usuario['nombre'];
-                $_SESSION['usuario'] = $nombre;
+            if (password_verify($contrasena, $usuario[0]['pass'])) {
+                $_SESSION['usuario'] = $usuario[0]['nombre'];
+                //$_SESSION['usuario'] = $nombre;
 
                 header("Location: privada.php");
                 exit();
