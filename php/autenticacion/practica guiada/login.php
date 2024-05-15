@@ -36,7 +36,7 @@
                 if ($recordar) {
                     $token = generarToken();
                     $expiracion = time() + TIEMPO_EXPIRACION_RECUERDAME;
-        
+
                     guardarToken($token, $usuario['id'], date('Y-m-d H:i:s', $expiracion), 0);
         
                     setcookie('recuerdame', $token, $expiracion, '/');

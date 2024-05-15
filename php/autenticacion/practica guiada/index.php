@@ -4,17 +4,15 @@
 
     if (isset($_COOKIE['recuerdame'])) {
         $token = $_COOKIE['recuerdame'];
-    
-        $id_usuario = buscarUsuarioPorToken($token);
-    
+
+        $id_usuario = buscarIdUsuarioPorToken(substr($token, 0, -1));
+
         if ($id_usuario !== null) {
-            session_start();
             $_SESSION['usuario'] = obtenerNombreUsuario($id_usuario);
         }
     }
 
     if (!isset($_SESSION['usuario'])) {
-        //echo "error";
         header("Location: login.php");
         exit();
     } else {
