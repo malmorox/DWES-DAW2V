@@ -18,7 +18,7 @@ INSERT INTO usuarios (nombre, apellidos, email, pass) VALUES
     ('María', 'López García', 'mm@dsa.es', '$2y$10$0RpPoozo.8kcqfi1sxAXheYZG9JedWKCA9zwXMFFsuk0TutFj6kZC'),
     ('Pedro', 'Gómez Pérez', 'pedro@dwes.com', '$2y$10$lFuAL5rkprRz/7B1CdO7te9XnkW1k8VD5F9f4VQqkXwaWql8DDuDm');
 
--- Tenemos una tabla de token asociada a los usuarios tienen fecha de validez y además si han sido consumidos o no
+-- Tenemos una tabla de token asociada a los usuarios, tienen fecha de validez y además si han sido consumidos o no
 CREATE TABLE tokens (
     id INT AUTO_INCREMENT PRIMARY KEY,
     token VARCHAR(255) NOT NULL,

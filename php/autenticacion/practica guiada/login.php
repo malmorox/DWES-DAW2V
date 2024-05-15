@@ -1,13 +1,11 @@
 <?php
+
     require_once 'init.php';
-    require_once 'funcionalidad.php';
 
     if (isset($_SESSION['usuario'])) {
         header("Location: index.php");
         exit();
     }
-
-    define('TIEMPO_EXPIRACION', 7 * 24 * 60 * 60);
 
     $errores = [];
     $nombre = "";
@@ -28,23 +26,23 @@
 
         if (empty($errores)) {
             $usuario = $db->ejecuta("SELECT * FROM usuarios WHERE nombre = :nombre", $nombre);
-            $usuario = $db->obtenDatos();
+            $usuario = $db->obtenDato();
             //print_r($usuario);
                 
-            if (password_verify($contrasena, $usuario[0]['pass'])) {
-                $_SESSION['usuario'] = $usuario[0]['nombre'];
+            if (password_verify($contrasena, $usuario['pass'])) {
+                $_SESSION['usuario'] = $usuario['nombre'];
                 //$_SESSION['usuario'] = $nombre;
 
                 if ($recordar) {
                     $token = generarToken();
-                    $expiracion = time() + TIEMPO_EXPIRACION;
+                    $expiracion = time() + TIEMPO_EXPIRACION_RECUERDAME;
         
-                    guardarToken($token, date('Y-m-d H:i:s', $expiracion),  $usuario[0]['id']);
+                    guardarToken($token, $usuario['id'], date('Y-m-d H:i:s', $expiracion), 0);
         
-                    setcookie('token', $token, $expira, '/');
+                    setcookie('recuerdame', $token, $expiracion, '/');
                 }
 
-                header("Location: privada.php");
+                header("Location: index.php");
                 exit();
             } else {
                 $errores['credenciales'] = "Credenciales incorrectas";
