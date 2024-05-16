@@ -6,6 +6,35 @@
 </head>
 <body>
     <h1> Detalle de los ciclos de la familia '{{ familia.nombre }}' </h1>
+    {% if familia.ciclo_set.all %}
+        <ul>
+            {% for ciclo in familia.ciclo_set.all %}
+                <li> 
+                    <strong>{{ ciclo.nombre }}</strong> <br>
+                    <ul>
+                        {% for modulo in ciclo.listado_modulos %}
+                            {% if modulo %}
+                                <li>{{ modulo }}</li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p> Esta familia no tiene ciclos de momento. </p>
+    {% endif %}
+</body>
+</html>
+
+<!--<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title> Detalles de ciclos </title>
+</head>
+<body>
+    <h1> Detalle de los ciclos de la familia '{{ familia.nombre }}' </h1>
     {% if ciclos %}
         <ul>
             {% for ciclo in ciclos %}
@@ -25,4 +54,4 @@
         <p> Esta familia no tiene ciclos de momento. </p>
     {% endif %}
 </body>
-</html>
+</html> -->

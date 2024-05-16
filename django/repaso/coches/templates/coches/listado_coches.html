@@ -10,13 +10,13 @@
         <ul>
             {% for coche in coches %}
                 <li>
-                    <h2> {{ coche.fabricante }} {{ coche.modelo }} </h2> 
-                    <img src="{{ coche.imagen.url }}" alt="Imagen de {{ coche }}" height="100">
-                    <span> Precio: {{ coche.precio }} euros </span>
+                    <h3> {{ coche.fabricante }} {{ coche.modelo }} </h3> 
+                    <img src="{{ coche.foto.url }}" alt="" height="100"> <br>
+                    <span> Precio: {{ coche.precio }} € </span> <br>
+                    <a href="{% url 'detalle_coche' pk=coche.pk %}"> Ver detalle </a>
                 </li>
             {% endfor %}
         </ul>
     {% endif %}
-    
 </body>
 </html>
