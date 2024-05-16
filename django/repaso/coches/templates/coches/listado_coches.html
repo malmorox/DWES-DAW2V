@@ -5,6 +5,13 @@
     <title> Listado de coches </title>
 </head>
 <body>
+    <h3> Calcular ahorro con datos de usuario </h3>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit"> Calcular </button>
+    </form>
+
     <h1> Listado de coches </h1>
     {% if coches %}
         <ul>
@@ -14,6 +21,9 @@
                     <img src="{{ coche.foto.url }}" alt="" height="100"> <br>
                     <span> Precio: {{ coche.precio }} € </span> <br>
                     <a href="{% url 'detalle_coche' pk=coche.pk %}"> Ver detalle </a>
+                    {% if resultados and coche.pk in resultados %}
+                        <span style="color:red"> Necesitas ahorrar {{ resultados.coche.pk.anos }} años y {{ resultados.coche.pk.meses }} meses para comprarlo </span>
+                    {% endif %}
                 </li>
             {% endfor %}
         </ul>
