@@ -22,7 +22,7 @@
                     <span> Precio: {{ coche.precio }} € </span> <br>
                     <a href="{% url 'detalle_coche' pk=coche.pk %}"> Ver detalle </a>
                     {% if resultados and coche.pk in resultados %}
-                        <span style="color:red"> Necesitas ahorrar {{ resultados.coche.pk.anos }} años y {{ resultados.coche.pk.meses }} meses para comprarlo </span>
+                        <span style="color:red"> Necesitas ahorrar {{ coche.anos }} años y {{ coche.meses }} meses para comprarlo </span>
                     {% endif %}
                 </li>
             {% endfor %}
