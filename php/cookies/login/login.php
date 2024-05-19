@@ -1,12 +1,12 @@
 <?php
-    $errores = [];
+    $error = false;
 
     if(isset($_POST['submit'])) {
-        if($_POST['usuario'] === 'marcos' && $_POST['password'] === '1234') {
+        if($_POST['usuario'] === 'Marcos' && $_POST['password'] === '1234') {
             session_start();
             $_SESSION['usuario'] = $_POST['usuario'];
 
-            if(isset($_POST['recordar']) && $_POST['recordar'] == 'recordar') {
+            if(isset($_POST['recordar'])) {
                 // Cookie para recordar al usuario durante 7 días
                 setcookie('usuario', $_POST['usuario'], time() + (3600 * 24 * 7), "/");
             }
@@ -14,7 +14,7 @@
             header('Location: exito.php');
             exit;
         } else {
-            $errores['credenciales'] = "Usuario o contraseña incorrectos";
+            $error = true;
         }
     }
 ?>
@@ -28,10 +28,10 @@
 </head>
 <body>
     <h2>Iniciar sesión</h2>
-    <?php if (isset($errores['credenciales'])): ?>
-            <span style="color: red;"><?php echo $errores['credenciales']; ?></span><br>
+    <?php if ($error): ?>
+        <span style="color: red;"> Usuario o contraseña incorrectos </span><br>
     <?php endif; ?>
-    <form method="post">
+    <form action="" method="post">
         <label for="usuario">Usuario:</label><br>
         <input type="text" id="usuario" name="usuario"><br><br>
         <label for="password">Contraseña:</label><br>
