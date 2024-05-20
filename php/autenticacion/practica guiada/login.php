@@ -1,4 +1,5 @@
 <?php
+
     require_once 'init.php';
 
     if (isset($_SESSION['usuario'])) {
@@ -13,26 +14,35 @@
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $nombre = isset($_POST['nombre']) ? trim($_POST['nombre']) : null;
         $contrasena = isset($_POST['contrasena']) ? trim($_POST['contrasena']) : null;
+        $recordar = isset($_POST['recordar']) ? true : false;
 
         if (empty($nombre)) {
             $errores['nombre'] = "El nombre de usuario es obligatorio";
-        }
+        }                                    
 
         if (empty($contrasena)) {
             $errores['contrasena'] = "La contraseña es obligatoria";
         }
 
         if (empty($errores)) {
-            $aVerificar = $db->ejecuta("SELECT * FROM usuarios WHERE nombre = :id", $nombre);
-            
-            $usuario = $db->obtenDatos();
-            var_dump($usuario);
+            $usuario = $db->ejecuta("SELECT * FROM usuarios WHERE nombre = :nombre", $nombre);
+            $usuario = $db->obtenDato();
+            //print_r($usuario);
                 
             if (password_verify($contrasena, $usuario['pass'])) {
-                //$_SESSION['usuario'] = $usuario['nombre'];
-                $_SESSION['usuario'] = $nombre;
+                $_SESSION['usuario'] = $usuario['nombre'];
+                //$_SESSION['usuario'] = $nombre;
 
-                header("Location: privada.php");
+                if ($recordar) {
+                    $token = generarToken();
+                    $expiracion = time() + TIEMPO_EXPIRACION_RECUERDAME;
+
+                    guardarToken($token, $usuario['id'], date('Y-m-d H:i:s', $expiracion), 0);
+        
+                    setcookie('recuerdame', $token, $expiracion, '/');
+                }
+
+                header("Location: index.php");
                 exit();
             } else {
                 $errores['credenciales'] = "Credenciales incorrectas";

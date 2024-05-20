@@ -8,5 +8,5 @@ router = routers.DefaultRouter()
 router.register(r'distribuciones', views.DistroViewSet)
 
 app_name = 'distros'
-urlpatterns = [
+urlpatterns = []
 

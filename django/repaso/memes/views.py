@@ -1,63 +1,31 @@
 from django.shortcuts import render, redirect
-from django.views.generic import ListView, DetailView
+from django.views import generic
 from django.views.generic.edit import FormMixin
 from .models import Meme, Comentario
+from .forms import ComentarioForm
 
-class MemeListView(ListView):
+class ListadoMemesView(generic.ListView):
     model = Meme
     template_name = 'memes/listado_memes.html'
     context_object_name = 'memes'
 
-class DetalleMemeView(FormMixin, DetailView):
+class DetalleMemeView(generic.DetailView):
     model = Meme
-    template_name = 'memes/meme_detail.html'
+    template_name = 'memes/detalle_meme.html'
     context_object_name = 'meme'
-
-    def get_success_url(self):
-        return self.request.path
-
+    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['comentarios'] = self.object.comentarios.order_by('-fecha')
+        context['comentario_form'] = ComentarioForm()
+        context['comentarios'] = Comentario.objects.filter(meme=self.object)
         return context
 
     def post(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        form = self.get_form()
+        meme = self.get_object()
+        form = ComentarioForm(request.POST)
         if form.is_valid():
-            return self.form_valid(form)
-        else:
-            return self.form_invalid(form)
-
-    def form_valid(self, form):
-        comentario = form.save(commit=False)
-        comentario.meme = self.object
-        comentario.save()
-        return super().form_valid(form)
-
-class MemeCommentView(FormMixin, DetailView):
-    model = Meme
-    template_name = 'memes/meme_detail.html'
-    context_object_name = 'meme'
-
-    def get_success_url(self):
-        return self.request.path
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['comentarios'] = self.object.comentarios.order_by('-fecha')
-        return context
-
-    def post(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        form = self.get_form()
-        if form.is_valid():
-            return self.form_valid(form)
-        else:
-            return self.form_invalid(form)
-
-    def form_valid(self, form):
-        comentario = form.save(commit=False)
-        comentario.meme = self.object
-        comentario.save()
-        return super().form_valid(form)
+            comentario = form.save(commit=False)
+            comentario.meme = meme
+            comentario.save()
+            return redirect('detalle_meme', pk=meme.pk)
+        return render(request, self.template_name, {'meme': meme, 'form': form})

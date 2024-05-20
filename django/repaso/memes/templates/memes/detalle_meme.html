@@ -3,27 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Listado de memes </title>
+    <title> Detalle de meme </title>
 </head>
 <body>
     <h1>{{ meme.descripcion }}</h1>
     <img src="{{ meme.imagen.url }}" alt="">
 
     <h3> Añadir comentario: </h3>
-    <form method="post" action="{% url 'add_comment' pk=meme.pk %}">
+    <form action="" method="post">
         {% csrf_token %}
-        {{ comment_form.as_p }}
-        <button type="submit">Submit</button>
+        {{ comentario_form.as_p }}
+        <input type="submit" value="Postear">
     </form>
 
-    <h2>Comentarios:</h2>
-    <div>
-        {% for commentario in commentarios %}
-            <div>
-                {{ commentario.author }}
-                {{ commentario.text }}
-            </div>
-        {% endfor %}
-    </div>
+    <h2> Comentarios: </h2>
+    {% if comentarios %}
+        <div class="lista-comentarios">
+            {% for comentario in comentarios %}
+                <div class="comentario">
+                    {{ comentario.nombre }}
+                    {{ comentario.contenido }}
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p> No hay comentarios publicados </p>
+    {% endif %}
 </body>
 </html>

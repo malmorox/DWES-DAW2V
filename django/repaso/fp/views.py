@@ -4,7 +4,6 @@ from .models import FamiliaProfesional
 
 
 class ListadoFamiliasView(generic.ListView):
-    model = FamiliaProfesional
     template_name = 'fp/listado_familias.html'
     context_object_name = 'familias'
     
@@ -17,8 +16,8 @@ class DetalleCiclosView(generic.DetailView):
     template_name = 'fp/detalle_ciclos.html'
     context_object_name = 'familia'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        familia = self.get_object()
-        context['ciclos'] = familia.ciclo_set.all()
-        return context
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     familia = self.get_object()
+    #     context['ciclos'] = familia.ciclo_set.all()
+    #     return context

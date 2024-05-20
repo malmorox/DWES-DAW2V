@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> Listado de coches </title>
+</head>
+<body>
+    <h2> Detalle de {{ coche.fabricante }} {{ coche.modelo }} </h2>
+    <img src="{{ coche.foto.url }}" alt="" height="250"> <br>
+    <strong> Precio: {{ coche.precio }} € </strong> <br>
+    <span> Estado: {{ coche.nuevo_usado }} </span> <br>
+    <span> Combustible: {{ coche.combustible }} </span> <br>
+</body>
+</html>

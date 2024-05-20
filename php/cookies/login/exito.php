@@ -1,12 +1,16 @@
 <?php
     session_start();
 
+    if(isset($_COOKIE['usuario']) && $_COOKIE['usuario'] == 'Marcos') {
+        $_SESSION['usuario'] = $_COOKIE['usuario'];
+    }
+
     if(!isset($_SESSION['usuario'])) {
         header('Location: login.php');
         exit;
+    } else {
+        $usuario = $_SESSION['usuario'];
     }
-
-    $usuario = $_SESSION['usuario'];
 ?>
 
 <!DOCTYPE html>

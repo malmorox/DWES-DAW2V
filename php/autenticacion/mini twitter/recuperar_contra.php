@@ -1,6 +1,6 @@
 <?php
 
-    require_once 'config/correo.php';
+    require_once 'utils/correo.php';
 
     $error = false;
 
@@ -22,6 +22,7 @@
             }    
         }
     }
+    
 ?>
 <!DOCTYPE html>
 <html lang="en">
