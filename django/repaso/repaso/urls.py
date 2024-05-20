@@ -8,11 +8,11 @@ urlpatterns = [
     path('chistes/', include('chistes.urls')),
     path('fp/', include('fp.urls')),
     path('frutas', include('frutas.urls')),
-    path('fallout', include('fallout.urls')),
+    path('fallout/', include('fallout.urls')),
     path('musica/', include('musica.urls')),
     path('', include('memes.urls')),
     path('coches/', include('coches.urls')),
-    path('distros/', include('distros.urls')),
+    path('api/v1/', include('distro.urls')),
 ]
 
 if(settings.DEBUG):

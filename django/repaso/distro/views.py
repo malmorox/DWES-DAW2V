@@ -1,3 +1,8 @@
-from django.shortcuts import render
+from rest_framework import viewsets
+from .models import Distribucion
+from .serializers import DistroSerializer
 
-# Create your views here.
+
+class DistroViewSet(viewsets.ModelViewSet):
+    queryset = Distribucion.objects.all()
+    serializer_class = DistroSerializer
