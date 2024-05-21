@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'memes',
     'coches',
     'distro',
+    'galeria',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

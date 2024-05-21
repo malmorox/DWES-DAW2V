@@ -13,6 +13,7 @@ urlpatterns = [
     path('', include('memes.urls')),
     path('coches/', include('coches.urls')),
     path('api/v1/', include('distro.urls')),
+    path('galeria/', include('galeria.urls')),
 ]
 
 if(settings.DEBUG):
