@@ -14,6 +14,7 @@ urlpatterns = [
     path('coches/', include('coches.urls')),
     path('api/v1/', include('distro.urls')),
     path('galeria/', include('galeria.urls')),
+    path('mantenimiento/', include('mantenimiento.urls')),
 ]
 
 if(settings.DEBUG):

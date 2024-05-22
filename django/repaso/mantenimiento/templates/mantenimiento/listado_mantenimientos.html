@@ -1,0 +1,37 @@
+{% extends "mantenimiento/base.html" %}
+
+{% block content %}
+    <h2>Listado de Mantenimientos</h2>
+    {% if mantenimientos %}
+        <ul>
+            {% for mantenimiento in mantenimientos %}
+            <li>
+                <a href="{% url 'mantenimiento:detalle_mantenimiento' mantenimiento.pk %}">
+                    {{ mantenimiento.fecha }} - {{ mantenimiento.descripcion }}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p> No se han encontrado mantenimientos </p>
+    {% endif %}
+    
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; Primero</a>
+                <a href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+            {% endif %}
+
+            <span class="current">
+                Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+            </span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">Siguiente</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">Último &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+{% endblock %}

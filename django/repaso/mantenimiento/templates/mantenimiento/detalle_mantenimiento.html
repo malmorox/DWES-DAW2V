@@ -1,0 +1,10 @@
+{% extends "mantenimiento/base.html" %}
+
+{% block content %}
+    <h2> Detalle del mantenimiento</h2>
+    <p> Fecha: {{ mantenimiento.fecha|date:"j \d\e F \d\e\l Y" }} </p>
+    <p> Descripción: {{ mantenimiento.descripcion }} </p>
+    <p> Edificio: {{ mantenimiento.edificio.nombre }} </p>
+    <p> Técnico: {{ mantenimiento.tecnico.nombre }} </p>
+    <a href="{% url 'mantenimiento:listado_mantenimientos' %}"> Volver al listado </a>
+{% endblock %}
