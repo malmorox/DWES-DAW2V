@@ -16,33 +16,36 @@ class ListadoCochesView(generic.ListView, generic.edit.FormMixin):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['form'] = DatosUsuarioForm()
-        context['resultados'] = None
+        context['form'] = self.get_form()
+        context['resultados'] = getattr(self, 'resultados', None)
         return context
     
     def post(self, request, *args, **kwargs):
         form = self.get_form()
-        context = self.get_context_data()
         if form.is_valid():
-            sueldo_mensual = form.cleaned_data['sueldo_mensual']
-            gasto_alquiler = form.cleaned_data['gasto_alquiler']
-            gastos_mensuales = form.cleaned_data['gastos_mensuales']
+            sueldo_mensual = float(form.cleaned_data['sueldo_mensual'])
+            gasto_alquiler = float(form.cleaned_data['gasto_alquiler'])
+            gastos_mensuales = float(form.cleaned_data['gastos_mensuales'])
             ahorro_mensual = sueldo_mensual - (gasto_alquiler + gastos_mensuales)
             
+            resultados = []
             coches = self.get_queryset()
-            self.object_list = coches
-            resultados = {}
             for coche in coches:
                 if ahorro_mensual > 0:
-                    meses_necesarios = math.ceil(coche.precio / ahorro_mensual)
+                    meses_necesarios = math.ceil(float(coche.precio) / ahorro_mensual)
                     anos_ahorrar = meses_necesarios // 12
                     meses_ahorrar = meses_necesarios % 12
+                    resultados.append({
+                        'coche': coche,
+                        'anos': anos_ahorrar,
+                        'meses': meses_ahorrar
+                    })
                     
-                    #coche.anos = anos_ahorrar
-                    #coche.meses = meses_ahorrar
-                    #coche.save()
-                    resultados[coche.pk] = {'anos': anos_ahorrar, 'meses': meses_ahorrar}
-            context['resultados'] = resultados
+            self.resultados = resultados
+        else:
+            self.resultados = None
+            
+        context = self.get_context_data()        
         return self.render_to_response(context)
 
 
