@@ -24,7 +24,7 @@ CREATE TABLE tokens (
     token VARCHAR(255) NOT NULL,
     usuario_id INT NOT NULL,
     fecha_validez DATETIME NOT NULL,
-    consumido BOOLEAN NOT NULL,
+    consumido BOOLEAN NOT NULL DEFAULT FALSE,
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
 );
 

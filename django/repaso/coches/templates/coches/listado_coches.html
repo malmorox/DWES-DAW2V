@@ -20,12 +20,10 @@
                     <h3> {{ coche.fabricante }} {{ coche.modelo }} </h3> 
                     <img src="{{ coche.foto.url }}" alt="" height="100"> <br>
                     <span> Precio: {{ coche.precio }} € </span> <br>
-                    <a href="{% url 'detalle_coche' pk=coche.pk %}"> Ver detalle </a>
-                    {% for resultado in resultados %}
-                        {% if resultado.coche.pk == coche.pk %}
-                            <span style="color:red">Necesitas ahorrar {{ resultado.anos }} años y {{ resultado.meses }} meses para comprarlo</span>
-                        {% endif %}
-                    {% endfor %}
+                    <a href="{% url 'detalle_coche' pk=coche.pk %}"> Ver detalle </a> <br>
+                    {% if coche.ahorro %}
+                        <span style="color:red"> Necesitas ahorrar {{ coche.ahorro }} para comprarlo</span>
+                    {% endif %}
                 </li>
             {% endfor %}
         </ul>

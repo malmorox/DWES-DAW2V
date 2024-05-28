@@ -1,7 +1,7 @@
 <?php
 
     function generarToken() {
-        return bin2hex(openssl_random_pseudo_bytes(128));
+        return bin2hex(openssl_random_pseudo_bytes(64));
     }
 
     function guardarToken($token, $id_usuario, $expiracion, $consumido) {
