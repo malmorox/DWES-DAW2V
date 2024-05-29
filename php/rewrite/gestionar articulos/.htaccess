@@ -1,4 +1,4 @@
 RewriteEngine On
-RewriteRule ^editar/([0-9]+)/?$ editar_articulo.php?id=$1 [L]
-RewriteRule ^articulo/([0-9]+)/?$ detalle_articulo.php?id=$1 [L]
-RewriteRule ^crear/? crear_articulo.php [L]
+RewriteRule ^listado/?$ listado_articulos.php [L]
+RewriteRule ^articulo/([^/]+)/?$ detalle_articulo.php?slug=$1 [L]
+RewriteRule ^crear-articulo/?$ crear_articulo.php [L]

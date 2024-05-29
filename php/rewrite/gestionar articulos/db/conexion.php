@@ -6,8 +6,6 @@
 
     try {
         $db = new PDO(DB_DATA, USERNAME, PASSWORD);
-        echo "Conexión exitosa!!!!!!"; // Temporalmente para verificar la conexión
-
     }catch(PDOException $e){
         echo "ERROR en conexión a la base de datos:" . $e->getMessage();
         die();

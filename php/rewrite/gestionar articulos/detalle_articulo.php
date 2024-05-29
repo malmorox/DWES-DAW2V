@@ -1,5 +1,5 @@
 <?php
-require_once 'base_datos/conexion.php';
+require_once 'db/conexion.php';
 
 $articulo = null;
 

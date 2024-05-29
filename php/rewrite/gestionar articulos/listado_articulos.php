@@ -1,7 +1,7 @@
 <?php 
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
-require_once './base_datos/conexion.php';
+require_once 'db/conexion.php';
 
 // Consulta para obtener todos los artículos
 $select = $db->prepare("SELECT * FROM ARTICULOS");
@@ -23,7 +23,7 @@ $articulos = $select->fetchAll(PDO::FETCH_ASSOC);
     <ul>
         <?php foreach ($articulos as $articulo): ?>
             <li>
-                <a href="detalle_articulos.php?slug=<?php echo htmlspecialchars($articulo['slug']); ?>">
+                <a href="articulo/<?= htmlspecialchars($articulo['slug']); ?>">
                     <?php echo htmlspecialchars($articulo['TITULO'] ?? 'Título no disponible'); ?>
                 </a>
             </li>
