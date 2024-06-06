@@ -1,7 +1,15 @@
 <?php
     require_once "funcionalidad.php";
 
-    $pedidos = obtenerPedidos();
+    $limit = 6;
+    $total_pedidos = contarPedidos();
+    $total_paginas = ceil($total_pedidos / $limit);
+
+    $pagina_actual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
+    $offset = ($pagina_actual - 1) * $limit;
+
+
+    $pedidos = obtenerPedidos($limit, $offset);
 
 ?>
 <!DOCTYPE html>
@@ -34,7 +42,19 @@
         <?php endforeach; ?>
     </table>
     <!-- paginación -->
-    <a href="listado.html">Siguiente</a>
+    <div class="paginacion">
+        <?php if($pagina_actual > 1): ?>
+            <a href="?pagina=<?= $pagina_actual - 1 ?>">Anterior</a>
+        <?php endif; ?>
+
+        <?php for($i = 1; $i <= $total_paginas; $i++): ?>
+            <a href="?pagina=<?= $i ?>"><?= $i ?></a>
+        <?php endfor; ?>
+
+        <?php if($pagina_actual < $total_paginas): ?>
+            <a href="?pagina=<?= $pagina_actual + 1 ?>">Siguiente</a>
+        <?php endif; ?>
+        </div>
 
     </div>
 </body>

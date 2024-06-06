@@ -52,10 +52,22 @@
         $consulta->execute();
     }
 
-    function obtenerPedidos() {
+    function contarPedidos() {
         global $db;
 
-        $consulta = $db->prepare("SELECT * FROM pedidos");
+        $consulta = $db->prepare("SELECT COUNT(*) FROM pedidos");
+        $consulta->execute();
+        $total_pedidos = $consulta->fetchColumn();
+
+        return $total_pedidos;
+    }
+
+    function obtenerPedidos($limit, $offset) {
+        global $db;
+
+        $consulta = $db->prepare("SELECT * FROM pedidos LIMIT :limit OFFSET :offset");
+        $consulta->bindParam(':limit', $limit, PDO::PARAM_INT);
+        $consulta->bindParam(':offset', $offset, PDO::PARAM_INT);
         $consulta->execute();
         $pedidos = $consulta->fetchAll(PDO::FETCH_ASSOC);
 
@@ -86,7 +98,7 @@
     function validarToken($token) {
         global $db;
 
-        $consulta = $db->prepare("SELECT * FROM tokens WHERE token = :token");
+        $consulta = $db->prepare("SELECT * FROM tokens WHERE token = :token AND fecha_validez > NOW() AND consumido = 0");
         $consulta->bindParam(":token", $token);
         $consulta->execute();
         $token = $consulta->fetch(PDO::FETCH_ASSOC);
@@ -94,22 +106,46 @@
         return $token ? true : false;
     }
 
-    function validarNuevaContrasena($contrasena) {
+    function obtenerIdPorToken($token) {
         global $db;
 
-        $consulta = $db->prepare("SELECT * FROM usuarios WHERE contrasena = :contrasena");
-        $consulta->bindParam(":contrasena", $contrasena);
+        $consulta = $db->prepare("SELECT usuario_id FROM tokens WHERE token = :token");
+        $consulta->bindParam(":token", $token);
         $consulta->execute();
-        $usuario = $consulta->fetch(PDO::FETCH_ASSOC);
+        $id_usuario = $consulta->fetchColumn();
 
-        return $usuario ? false : true;
+        return $id_usuario;
+    }
+
+    function validarNuevaContrasena($token, $contrasena) {
+        global $db;
+
+        $id_usuario = obtenerIdPorToken($token);
+
+        $consulta_contra_actual_usuario = $db->prepare("SELECT pass FROM usuarios WHERE id = :id");
+        $consulta_contra_actual_usuario->bindParam(":id", $id_usuario, PDO::PARAM_INT);
+        $consulta_contra_actual_usuario->execute();
+        $contra_actual_usuario = $consulta_contra_actual_usuario->fetchColumn();
+
+        return ($contrasena === $contra_actual_usuario) ? true : false;
     }
 
     function actualizarContrasena($token, $contrasena) {
         global $db;
 
-        $consulta = $db->prepare("UPDATE usuarios SET contrasena = :contrasena WHERE token = :token");
-        $consulta->bindParam(":contrasena", $contrasena);
+        $id_usuario = obtenerIdPorToken($token);
+        $contrasena_hasheada = password_hash($contrasena, PASSWORD_DEFAULT);
+
+        $consulta = $db->prepare("UPDATE usuarios SET pass = :contrasena WHERE id = :id");
+        $consulta->bindParam(":contrasena", $contrasena_hasheada);
+        $consulta->bindParam(":id", $id_usuario, PDO::PARAM_INT);
+        $consulta->execute();
+    }
+
+    function consumirToken($token) {
+        global $db;
+
+        $consulta = $db->prepare("UPDATE tokens SET consumido = 1 WHERE token = :token");
         $consulta->bindParam(":token", $token);
         $consulta->execute();
     }

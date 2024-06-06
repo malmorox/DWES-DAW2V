@@ -17,8 +17,8 @@
     <div id="contenedor">
     <h1>Recuperar contraseña</h1>
     <ul>
-        <?php foreach($tokens as $token): ?>
-            <li><a href="recupera.php?token=<?= $token["token"] ?>"> Recuperar contraseña </a></li>
+        <?php foreach($tokens as $indice => $token): ?>
+            <li><a href="recupera.php?token=<?= $token["token"] ?>"> Recuperar contraseña <?= $indice + 1 ?> </a></li>
         <?php endforeach; ?>
     </ul>
     </div>
