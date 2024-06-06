@@ -4,6 +4,33 @@ body {
     font: helvetica, sans-serif;
 }
 
+.body-index {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.contenedor {
+    text-align: center;
+}
+.boton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    height: 100px;
+    margin: 20px auto;
+    background-color: #51a8db;
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+    border-radius: 10px;
+    transition: background-color 0.3s;
+}
+.boton:hover {
+    background-color: #3287b8;
+}
+
 /*margen superior entre labels */
 label {
     margin-top: 10px;

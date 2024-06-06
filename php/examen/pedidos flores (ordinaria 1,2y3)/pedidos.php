@@ -1,6 +1,11 @@
 <?php
     require_once "funcionalidad.php";
 
+    if (!isset($_SESSION['usuario'])) {
+        header("Location: login.php");
+        exit();
+    }
+
     $limit = 6;
     $total_pedidos = contarPedidos();
     $total_paginas = ceil($total_pedidos / $limit);
@@ -55,7 +60,7 @@
             <a href="?pagina=<?= $pagina_actual + 1 ?>">Siguiente</a>
         <?php endif; ?>
         </div>
-
     </div>
+    <a href="logout.php">Cerrar sesión</a>
 </body>
 </html>

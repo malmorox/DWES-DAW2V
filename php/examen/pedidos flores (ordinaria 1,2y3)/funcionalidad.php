@@ -65,24 +65,13 @@
     function obtenerPedidos($limit, $offset) {
         global $db;
 
-        $consulta = $db->prepare("SELECT * FROM pedidos LIMIT :limit OFFSET :offset");
+        $consulta = $db->prepare("SELECT * FROM pedidos ORDER BY fecha LIMIT :limit OFFSET :offset");
         $consulta->bindParam(':limit', $limit, PDO::PARAM_INT);
         $consulta->bindParam(':offset', $offset, PDO::PARAM_INT);
         $consulta->execute();
         $pedidos = $consulta->fetchAll(PDO::FETCH_ASSOC);
 
         return $pedidos;
-    }
-
-    function obtenerInfoUsuarioPorId($id) {
-        global $db;
-
-        $consulta = $db->prepare("SELECT * FROM usuarios WHERE id = :id");
-        $consulta->bindParam(":id", $id, PDO::PARAM_INT);
-        $consulta->execute();
-        $usuario = $consulta->fetch(PDO::FETCH_ASSOC);
-
-        return $usuario;
     }
 
     function obtenerTokens() {
@@ -148,5 +137,27 @@
         $consulta = $db->prepare("UPDATE tokens SET consumido = 1 WHERE token = :token");
         $consulta->bindParam(":token", $token);
         $consulta->execute();
+    }
+
+    function validarUsuario($usuario, $contrasena) {
+        global $db;
+
+        $consulta = $db->prepare("SELECT pass FROM usuarios WHERE nombre = :usuario");
+        $consulta->bindParam(":usuario", $usuario);
+        $consulta->execute();
+        $contrasena_hash = $consulta->fetchColumn();
+
+        return password_verify($contrasena, $contrasena_hash);
+    }
+
+    function obtenerInfoUsuarioPorNombre($nombre_usuario) {
+        global $db;
+
+        $consulta = $db->prepare("SELECT * FROM usuarios WHERE nombre = :nombre");
+        $consulta->bindParam(":nombre", $nombre_usuario);
+        $consulta->execute();
+        $usuario = $consulta->fetch(PDO::FETCH_ASSOC);
+
+        return $usuario;
     }
 ?>

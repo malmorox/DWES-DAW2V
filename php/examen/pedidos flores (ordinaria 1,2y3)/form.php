@@ -40,7 +40,14 @@
             insertarPedido($flor_id, $fecha, $cantidad);
             actualizarStock($flor_id, $cantidad);
 
-            header("Location: exito.php");
+            $parametros_url = http_build_query([
+                "nombre" => $nombre,
+                "fecha" => $fecha,
+                "flor" => obtenerFlorPorId($flor_id)["nombre"],
+                "cantidad" => $cantidad
+            ]);
+
+            header("Location: exito.php?" . $parametros_url);
             die();
         }
     }
