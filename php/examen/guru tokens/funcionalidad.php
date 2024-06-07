@@ -34,10 +34,10 @@
         return $datos_token;
     }
 
-    function obtenerEmailUsuarioTokenProporcionado($token) {
+    function obtenerEmailUsuarioTokenProporcionado($id_usuario_conmsumidor_token) {
         global $db;
-        $consulta = $db->prepare("SELECT email FROM usuarios WHERE id = :token");
-        $consulta->bindParam(":token", $token);
+        $consulta = $db->prepare("SELECT email FROM usuarios WHERE id = :id");
+        $consulta->bindParam(":id", $id_usuario_conmsumidor_token, PDO::PARAM_INT);
         $consulta->execute();
         $email_usuario = $consulta->fetchColumn();
 
