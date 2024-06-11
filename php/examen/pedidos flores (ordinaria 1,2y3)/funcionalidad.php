@@ -78,6 +78,7 @@
         global $db;
 
         $consulta = $db->prepare("SELECT * FROM tokens");
+        //$consulta = $db->prepare("SELECT * FROM tokens WHERE consumido = 0");
         $consulta->execute();
         $tokens = $consulta->fetchAll(PDO::FETCH_ASSOC);
 
@@ -116,7 +117,7 @@
         $consulta_contra_actual_usuario->execute();
         $contra_actual_usuario = $consulta_contra_actual_usuario->fetchColumn();
 
-        return ($contrasena === $contra_actual_usuario) ? true : false;
+        return password_verify($contrasena, $contra_actual_usuario);
     }
 
     function actualizarContrasena($token, $contrasena) {

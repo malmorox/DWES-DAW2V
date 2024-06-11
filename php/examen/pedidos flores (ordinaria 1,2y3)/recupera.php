@@ -15,14 +15,14 @@
             
             if (empty($nueva_contrasena)) {
                 $errores["nueva_contrasena"] = "Debes introducir una contraseña";
-            } else if (!validarNuevaContrasena($token, $nueva_contrasena)) {
+            } else if (validarNuevaContrasena($token, $nueva_contrasena)) {
                 $errores["nueva_contrasena"] = "La contraseña no puede ser igual a la anterior";
             }
 
             if (empty($errores)) {
                 actualizarContrasena($token, $nueva_contrasena);
                 $cambio_contrasena_exitoso = true;
-                //ºconsumirToken($token);
+                //consumirToken($token);
                 echo "<script>
                         setTimeout(function() {
                             window.location.href = 'login.php';

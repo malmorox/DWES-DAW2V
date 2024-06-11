@@ -29,6 +29,6 @@
         <li>Flor: <?= $flor ?></li>
         <li>Cantidad: <?= $cantidad ?></li>
     </ul>
-    <a href="index.php">Volver al inicio</a>
+    <a href="index.html">Volver al inicio</a>
 </body>
 </html>

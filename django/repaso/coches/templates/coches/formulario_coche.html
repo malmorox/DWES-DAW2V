@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> Agregar coche </title>
+</head>
+<body>
+    <h1> Agrega un nuevo coche </h1>
+    <form action={% url 'coches:crear_coche' %} method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit"> Guardar </button>
+    </form>
+</body>
+</html>

@@ -44,8 +44,8 @@
                 echo "<td>{$empleado['mote']}</td>";
                 echo "<td>{$empleado['nombre']}</td>";
                 echo "<td>{$empleado['departamento']}</td>";
-                echo "</tr>";
-                echo "<tr>";*/
+                echo "</tr>";*/
+                echo "<tr>";
                 foreach ($empleado as $valor) {
                     echo "<td> {$valor} </td>";
                 }

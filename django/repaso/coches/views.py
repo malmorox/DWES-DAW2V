@@ -1,7 +1,7 @@
-# from django.shortcuts import render
 from django.views import generic
+from django.urls import reverse_lazy
 from .models import Coche
-from .forms import DatosUsuarioForm
+from .forms import CocheForm, DatosUsuarioForm
 import math
 
 
@@ -10,6 +10,7 @@ class ListadoCochesView(generic.ListView, generic.edit.FormMixin):
     template_name = 'coches/listado_coches.html'
     context_object_name = 'coches'
     form_class = DatosUsuarioForm
+    paginate_by = 3
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -41,3 +42,14 @@ class DetalleCocheView(generic.DetailView):
     model = Coche
     template_name = 'coches/detalle_coche.html'
     context_object_name = 'coche'
+    
+    
+class CrearCocheView(generic.edit.FormView):
+    template_name = 'coches/formulario_coche.html'
+    form_class = CocheForm
+    success_url = reverse_lazy('coches:listado_coches')
+    
+    def form_valid(self, form):
+        coche = form.save(commit=False)
+        coche.save()
+        return super().form_valid(form)

@@ -1,4 +1,10 @@
 from django import forms
+from .models import Coche
+
+class CocheForm(forms.ModelForm):
+    class Meta:
+        model = Coche
+        fields = ['fabricante', 'modelo', 'precio', 'nuevo_usado', 'combustible', 'foto']
 
 class DatosUsuarioForm(forms.Form):
     sueldo_mensual = forms.DecimalField(label='Sueldo neto mensual', max_digits=10, decimal_places=2, min_value=0)

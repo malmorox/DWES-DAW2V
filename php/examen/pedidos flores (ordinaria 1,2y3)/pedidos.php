@@ -6,15 +6,15 @@
         exit();
     }
 
-    $limit = 6;
+    $resultados_por_pagina  = 6;
     $total_pedidos = contarPedidos();
-    $total_paginas = ceil($total_pedidos / $limit);
+    $total_paginas = ceil($total_pedidos / $resultados_por_pagina );
 
     $pagina_actual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
-    $offset = ($pagina_actual - 1) * $limit;
+    $offset = ($pagina_actual - 1) * $resultados_por_pagina ;
 
 
-    $pedidos = obtenerPedidos($limit, $offset);
+    $pedidos = obtenerPedidos($resultados_por_pagina , $offset);
 
 ?>
 <!DOCTYPE html>
